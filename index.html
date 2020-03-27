@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>COVID-19 Tracking Data</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+    <h1>COVID-19 Tracking Data</h1>
+    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
+    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
+    <i>(The State Testing Data is updated as new data comes in)</i></p>
+    <table>
+    <thead>
+        <tr>
+            <th id="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
+            <th id="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="totaltests">Total Tests Taken <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="hospitalized">Hospitalized <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="deaths">Deaths <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <!--<th id="total">Total test results<br />(Positive + Negative)</th>-->
+            <!--<th id="percentpositive">Percent of Tests Positive</th>-->
+            <th id="percent">Percent of Population Tested <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <!--<th id="governor">Governor <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>-->
+        </tr>
+    </thead>
+    <tbody id="root">
+
+    </tbody>        
+    </table>
+    <script type="text/javascript">
+        /**
+ * jQuery.fn.sortElements
+ * --------------
+ * @param Function comparator:
+ *   Exactly the same behaviour as [1,2,3].sort(comparator)
+ *   
+ * @param Function getSortable
+ *   A function that should return the element that is
+ *   to be sorted. The comparator will run on the
+ *   current collection, but you may want the actual
+ *   resulting sort to occur on a parent or another
+ *   associated element.
+ *   
+ *   E.g. $('td').sortElements(comparator, function(){
+ *      return this.parentNode; 
+ *   })
+ *   
+ *   The <td>'s parent (<tr>) will be sorted instead
+ *   of the <td> itself.
+ */
+jQuery.fn.sortElements = (function(){
+ 
+    var sort = [].sort;
+ 
+    return function(comparator, getSortable) {
+ 
+        getSortable = getSortable || function(){return this;};
+ 
+        var placements = this.map(function(){
+ 
+            var sortElement = getSortable.call(this),
+                parentNode = sortElement.parentNode,
+ 
+                // Since the element itself will change position, we have
+                // to have some way of storing its original position in
+                // the DOM. The easiest way is to have a 'flag' node:
+                nextSibling = parentNode.insertBefore(
+                    document.createTextNode(''),
+                    sortElement.nextSibling
+                );
+ 
+            return function() {
+ 
+                if (parentNode === this) {
+                    throw new Error(
+                        "You can't sort elements if any one is a descendant of another."
+                    );
+                }
+ 
+                // Insert before flag:
+                parentNode.insertBefore(this, nextSibling);
+                // Remove flag:
+                parentNode.removeChild(nextSibling);
+ 
+            };
+ 
+        });
+ 
+        return sort.call(this, comparator).each(function(i){
+            placements[i].call(getSortable.call(this));
+        });
+ 
+    };
+ 
+})();
+
+
+
+
+        var dict = {};
+        var addPair = function (myKey, myValue) {
+            dict[myKey] = myValue;
+        };
+        var giveValue = function (myKey) {
+            return dict[myKey];
+        };
+        addPair('CA', '39512223');
+        addPair('TX', '28995881');
+        addPair('FL', '21477737');
+        addPair('NY', '19453561');
+        addPair('PA', '12801989');
+        addPair('IL', '12671821');
+        addPair('OH', '11689100');
+        addPair('GA', '10617423');
+        addPair('NC', '10488084');
+        addPair('MI', '9986857');
+        addPair('NJ', '8882190');
+        addPair('VA', '8535519');
+        addPair('WA', '7614893');
+        addPair('AZ', '7278717');
+        addPair('MA', '6949503');
+        addPair('TN', '6833174');
+        addPair('IN', '6732219');
+        addPair('MO', '6137428');
+        addPair('MD', '6045680');
+        addPair('WI', '5822434');
+        addPair('CO', '5758736');
+        addPair('MN', '5639632');
+        addPair('SC', '5148714');
+        addPair('AL', '4903185');
+        addPair('LA', '4648794');
+        addPair('KY', '4467673');
+        addPair('OR', '4217737');
+        addPair('OK', '3956971');
+        addPair('CT', '3565287');
+        addPair('UT', '3205958');
+        addPair('IA', '3155070');
+        addPair('NV', '3080156');
+        addPair('AR', '3017825');
+        addPair('MS', '2976149');
+        addPair('KS', '2913314');
+        addPair('NM', '2096829');
+        addPair('NE', '1934408');
+        addPair('WV', '1792065');
+        addPair('ID', '1787147');
+        addPair('HI', '1415872');
+        addPair('NH', '1359711');
+        addPair('ME', '1344212');
+        addPair('MT', '1068778');
+        addPair('RI', '1059361');
+        addPair('DE', '973764');
+        addPair('SD', '884659');
+        addPair('ND', '762062');
+        addPair('AK', '731545');
+        addPair('DC', '705749');
+        addPair('VT', '623989');
+        addPair('WY', '578759');
+
+
+        var dictGovernor = {};
+        var addPairGovernor = function (myKey, myValue) {
+            dictGovernor[myKey] = myValue;
+        };
+        var giveValueGovernor = function (myKey) {
+            return dictGovernor[myKey];
+        };
+        addPairGovernor('AL', 'Kay Ivey (Republican)');
+        addPairGovernor('AK', 'Mike Dunleavy (Republican)');
+        addPairGovernor('AZ', 'Doug Ducey (Republican)');
+        addPairGovernor('AR', 'Asa Hutchinson (Republican)');
+        addPairGovernor('CA', 'Gavin Newsom (Democratic)');
+        addPairGovernor('CO', 'Jared Polis (Democratic)');
+        addPairGovernor('CT', 'Ned Lamont (Democratic)');
+        addPairGovernor('DC', 'Muriel Bowser (Democratic)');
+        addPairGovernor('DE', 'John Carney (Democratic)');
+        addPairGovernor('FL', 'Ron DeSantis (Republican)');
+        addPairGovernor('GA', 'Brian Kemp (Republican)');
+        addPairGovernor('HI', 'David Ige (Democratic)');
+        addPairGovernor('ID', 'Brad Little (Republican)');
+        addPairGovernor('IL', 'J. B. Pritzker (Democratic)');
+        addPairGovernor('IN', 'Eric Holcomb (Republican)');
+        addPairGovernor('IA', 'Kim Reynolds (Republican)');
+        addPairGovernor('KS', 'Laura Kelly (Democratic)');
+        addPairGovernor('KY', 'Andy Beshear (Democratic)');
+        addPairGovernor('LA', 'John Bel Edwards (Democratic)');
+        addPairGovernor('ME', 'Janet Mills (Democratic)');
+        addPairGovernor('MD', 'Larry Hogan (Republican)');
+        addPairGovernor('MA', 'Charlie Baker (Republican)');
+        addPairGovernor('MI', 'Gretchen Whitmer (Democratic)');
+        addPairGovernor('MN', 'Tim Walz (Democratic)');
+        addPairGovernor('MS', 'Tate Reeves (Republican)');
+        addPairGovernor('MO', 'Mike Parson (Republican)');
+        addPairGovernor('MT', 'Steve Bullock (Democratic)');
+        addPairGovernor('NE', 'Pete Ricketts (Republican)');
+        addPairGovernor('NV', 'Steve Sisolak (Democratic)');
+        addPairGovernor('NH', 'Chris Sununu (Republican)');
+        addPairGovernor('NJ', 'Phil Murphy (Democratic)');
+        addPairGovernor('NM', 'Michelle Lujan Grisham (Democratic)');
+        addPairGovernor('NY', 'Andrew Cuomo (Democratic)');
+        addPairGovernor('NC', 'Roy Cooper (Democratic)');
+        addPairGovernor('ND', 'Doug Burgum (Republican)');
+        addPairGovernor('OH', 'Mike DeWine (Republican)');
+        addPairGovernor('OK', 'Kevin Stitt (Republican)');
+        addPairGovernor('OR', 'Kate Brown (Democratic)');
+        addPairGovernor('PA', 'Tom Wolf (Democratic)');
+        addPairGovernor('RI', 'Gina Raimondo (Democratic)');
+        addPairGovernor('SC', 'Henry McMaster (Republican)');
+        addPairGovernor('SD', 'Kristi Noem (Republican)');
+        addPairGovernor('TN', 'Bill Lee (Republican)');
+        addPairGovernor('TX', 'Greg Abbott (Republican)');
+        addPairGovernor('UT', 'Gary Herbert (Republican)');
+        addPairGovernor('VT', 'Phil Scott (Republican)');
+        addPairGovernor('VA', 'Ralph Northam (Democratic)');
+        addPairGovernor('WA', 'Jay Inslee (Democratic)');
+        addPairGovernor('WV', 'Jim Justice (Republican)');
+        addPairGovernor('WI', 'Tony Evers (Democratic)');
+        addPairGovernor('WY', 'Mark Gordon (Republican)');
+
+        const app = document.getElementById('root');
+
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://covidtracking.com/api/states', true);
+        request.onload = function () {
+
+            // Begin accessing JSON data here
+            var data = JSON.parse(this.response);
+            if (request.status >= 200 && request.status < 400) {
+                data.forEach(state => {
+                    if (parseInt(giveValue(state.state)) > 0) {
+                    const staterow = document.createElement('tr');
+                    staterow.setAttribute('class', state.state);
+
+                    //{"state":"AZ","positive":470,"positiveScore":1,"negativeScore":1,"negativeRegularScore":1,"commercialScore":0,"grade":"B","score":3,
+                    //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
+                    //state
+                    var statecolumn = document.createElement('td');
+                    statecolumn.textContent = state.state;
+                    staterow.appendChild(statecolumn);
+
+                    //population
+                    var statecolumn2 = document.createElement('td');
+                    statecolumn2.textContent = formatNumber(giveValue(state.state));
+                    staterow.appendChild(statecolumn2);
+
+                    //positive
+                    var positive = (state.positive?state.positive:0);
+                    var statecolumn3 = document.createElement('td');
+                    statecolumn3.textContent = formatNumber(positive);
+                    staterow.appendChild(statecolumn3);
+
+                    //negative
+                    var negative = (state.negative?state.negative:0);
+                    var statecolumn4 = document.createElement('td');
+                    statecolumn4.textContent = formatNumber(negative);
+                    staterow.appendChild(statecolumn4);
+
+                    //positivepercent
+                    var totaltests2 = parseInt(positive) + parseInt(negative);
+                    var statecolumn11 = document.createElement('td');
+                    statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString()+'%';
+                    staterow.appendChild(statecolumn11);
+
+                    //pending
+                    var pending = (state.pending?state.pending:0);
+                    var statecolumn5 = document.createElement('td');
+                    statecolumn5.textContent = formatNumber(pending);
+                    staterow.appendChild(statecolumn5);
+
+                    //totaltests
+                    var totaltests = parseInt(positive) + parseInt(negative) + parseInt(pending);
+                    var statecolumn11 = document.createElement('td');
+                    statecolumn11.textContent = formatNumber(totaltests);
+                    staterow.appendChild(statecolumn11);
+
+                    //hospitalized
+                    var statecolumn6 = document.createElement('td');
+                    statecolumn6.textContent = formatNumber(state.hospitalized);
+                    staterow.appendChild(statecolumn6);
+
+                    //deaths
+                    var statecolumn7 = document.createElement('td');
+                    statecolumn7.textContent = formatNumber(state.death);
+                    staterow.appendChild(statecolumn7);
+
+                    //total
+                    //var statecolumn8 = document.createElement('td');
+                    //statecolumn8.textContent = formatNumber(state.totalTestResults);
+                    //staterow.appendChild(statecolumn8);
+                        
+                    //percentpositive
+                    //var statecolumn10 = document.createElement('td');
+                    //statecolumn10.textContent = formatNumber(parseInt(state.positive) / parseInt(giveValue(state.totalTestResults)) * 100).toString()+'%';
+                    //staterow.appendChild(statecolumn10);
+
+                    //percent
+                    //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
+                    var statecolumn9 = document.createElement('td');
+                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / parseInt(giveValue(state.state)) * 100).toString()+'%';
+                    staterow.appendChild(statecolumn9);
+
+                    //governor
+                    //var statecolumnGovernor = document.createElement('td');
+                    //statecolumnGovernor.textContent = giveValueGovernor(state.state);
+                    //staterow.appendChild(statecolumnGovernor);
+
+                    app.appendChild(staterow);
+                  }
+                });
+            } else {
+                const errorMessage = document.createElement('marquee');
+                errorMessage.textContent = `Gah, it's not working!`;
+                app.appendChild(errorMessage);
+            }
+        }
+        function formatNumber(numbertoformat) {
+            if (!numbertoformat) return '0';
+            var returnnumber = 0;
+            returnnumber = Number(parseFloat(numbertoformat).toFixed(3)).toLocaleString('en', {
+                    minimumFractionDigits: 3
+                });
+            if (returnnumber.toString().endsWith('.000')) returnnumber = returnnumber.replace('.000','');
+            return returnnumber;
+        }
+
+        request.send();
+
+        var table = $('table');
+        //var test = '6,844';
+        //console.log('test:' + test.replace(/,/g, ''));
+    
+        $('th')
+            .wrapInner('<span title="sort this column"/>')
+            .each(function(){
+
+                var th = $(this),
+                    thIndex = th.index(),
+                    inverse = true;
+            
+                th.click(function () {
+                    $('.fa').hide();
+                    $('#' + $(this).attr('id') + ' .fa.fa-chevron-' + (!inverse ? 'up' :'down')).show();
+                    //console.log('id:' + $(this).attr('id') + ':inverse:' + inverse);
+                
+                    table.find('td').filter(function(){                    
+                        return $(this).index() === thIndex;                    
+                    }).sortElements(function (a, b) {
+                        if ($.isNumeric($.text([a]).replace(/,/g, ''))) {
+                            //console.log('a:' + $.text([a]).replace(/,/g, '-'));
+                            return parseInt($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseInt($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
+                                inverse ? -1 : 1
+                                : inverse ? 1 : -1;
+                        } else if ($.isNumeric($.text([a]).replace(/,/g, '').replace(/%/g, ''))) {
+                            //console.log('a:' + $.text([a]).replace(/,/g, '-'));
+                            return parseFloat($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseFloat($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
+                                inverse ? -1 : 1
+                                : inverse ? 1 : -1;
+                        } else {
+                            return $.text([a]) > $.text([b]) ?
+                                inverse ? -1 : 1
+                                : inverse ? 1 : -1;
+                        }                    
+                    }, function(){                    
+                        // parentNode is the element we want to move
+                        return this.parentNode;                     
+                    });
+                
+                    inverse = !inverse;
+                    
+                });
+                
+            });
+
+    </script>
+    <style type="text/css">
+        .container {text-align:center;}
+        table {width:100%;}
+        table td, table th {padding:10px;text-align:center;}
+        table thead th {font-weight: bold;background-color: #eee;border-bottom: 1px solid #999;border-right: 1px solid #999;}
+        table thead th:last-child {border-right: none;}
+        table thead th:hover {cursor: pointer;}
+        table tbody tr:hover {background:#eee;}
+    </style>
+    </div>
+</body>
+</html>
