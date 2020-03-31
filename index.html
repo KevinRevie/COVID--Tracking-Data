@@ -332,7 +332,7 @@ jQuery.fn.sortElements = (function(){
                     //percent
                     //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
                     var statecolumn9 = document.createElement('td');
-                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state))) * 100).toString() + '%';
+                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? 325386357 : giveValue(state.state)) * 100).toString() + '%';
                     staterow.appendChild(statecolumn9);
 
                     //governor
