@@ -226,15 +226,44 @@ jQuery.fn.sortElements = (function(){
 
         const app = document.getElementById('root');
 
+        var request2 = new XMLHttpRequest();
+        request2.open('GET', 'https://covidtracking.com/api/us', true);
+        request2.onload = function () { 
+            // Begin accessing JSON data here
+            if (request2.status >= 200 && request2.status < 400) {
+                var data = JSON.parse(this.response);
+                printData(data,true);
+            }
+        }
+        request2.send();
         var request = new XMLHttpRequest();
         request.open('GET', 'https://covidtracking.com/api/states', true);
         request.onload = function () {
-
             // Begin accessing JSON data here
-            var data = JSON.parse(this.response);
             if (request.status >= 200 && request.status < 400) {
-                data.forEach(state => {
-                    if (parseInt(giveValue(state.state)) > 0) {
+                var data = JSON.parse(this.response);
+                printData(data,false);
+            } else {
+                const errorMessage = document.createElement('marquee');
+                errorMessage.textContent = `Gah, it's not working!`;
+                app.appendChild(errorMessage);
+            }
+        }
+        request.send();
+        function formatNumber(numbertoformat) {
+            if (!numbertoformat) return '0';
+            var returnnumber = 0;
+            returnnumber = Number(parseFloat(numbertoformat).toFixed(3)).toLocaleString('en', {
+                    minimumFractionDigits: 3
+                });
+            if (returnnumber.toString().endsWith('.000')) returnnumber = returnnumber.replace('.000','');
+            return returnnumber;
+        }
+
+
+        function printData(data, alwaysdisplay) {
+            data.forEach(state => {
+                if (alwaysdisplay || parseInt(giveValue(state.state)) > 0) {
                     const staterow = document.createElement('tr');
                     staterow.setAttribute('class', state.state);
 
@@ -242,22 +271,22 @@ jQuery.fn.sortElements = (function(){
                     //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
                     //state
                     var statecolumn = document.createElement('td');
-                    statecolumn.textContent = state.state;
+                    statecolumn.textContent = (alwaysdisplay?' USA':state.state);
                     staterow.appendChild(statecolumn);
 
                     //population
                     var statecolumn2 = document.createElement('td');
-                    statecolumn2.textContent = formatNumber(giveValue(state.state));
+                    statecolumn2.textContent = (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state)));
                     staterow.appendChild(statecolumn2);
 
                     //positive
-                    var positive = (state.positive?state.positive:0);
+                    var positive = (state.positive ? state.positive : 0);
                     var statecolumn3 = document.createElement('td');
                     statecolumn3.textContent = formatNumber(positive);
                     staterow.appendChild(statecolumn3);
 
                     //negative
-                    var negative = (state.negative?state.negative:0);
+                    var negative = (state.negative ? state.negative : 0);
                     var statecolumn4 = document.createElement('td');
                     statecolumn4.textContent = formatNumber(negative);
                     staterow.appendChild(statecolumn4);
@@ -265,11 +294,11 @@ jQuery.fn.sortElements = (function(){
                     //positivepercent
                     var totaltests2 = parseInt(positive) + parseInt(negative);
                     var statecolumn11 = document.createElement('td');
-                    statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString()+'%';
+                    statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString() + '%';
                     staterow.appendChild(statecolumn11);
 
                     //pending
-                    var pending = (state.pending?state.pending:0);
+                    var pending = (state.pending ? state.pending : 0);
                     var statecolumn5 = document.createElement('td');
                     statecolumn5.textContent = formatNumber(pending);
                     staterow.appendChild(statecolumn5);
@@ -294,7 +323,7 @@ jQuery.fn.sortElements = (function(){
                     //var statecolumn8 = document.createElement('td');
                     //statecolumn8.textContent = formatNumber(state.totalTestResults);
                     //staterow.appendChild(statecolumn8);
-                        
+
                     //percentpositive
                     //var statecolumn10 = document.createElement('td');
                     //statecolumn10.textContent = formatNumber(parseInt(state.positive) / parseInt(giveValue(state.totalTestResults)) * 100).toString()+'%';
@@ -303,7 +332,7 @@ jQuery.fn.sortElements = (function(){
                     //percent
                     //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
                     var statecolumn9 = document.createElement('td');
-                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / parseInt(giveValue(state.state)) * 100).toString()+'%';
+                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state))) * 100).toString() + '%';
                     staterow.appendChild(statecolumn9);
 
                     //governor
@@ -312,25 +341,9 @@ jQuery.fn.sortElements = (function(){
                     //staterow.appendChild(statecolumnGovernor);
 
                     app.appendChild(staterow);
-                  }
-                });
-            } else {
-                const errorMessage = document.createElement('marquee');
-                errorMessage.textContent = `Gah, it's not working!`;
-                app.appendChild(errorMessage);
-            }
+                }
+            });
         }
-        function formatNumber(numbertoformat) {
-            if (!numbertoformat) return '0';
-            var returnnumber = 0;
-            returnnumber = Number(parseFloat(numbertoformat).toFixed(3)).toLocaleString('en', {
-                    minimumFractionDigits: 3
-                });
-            if (returnnumber.toString().endsWith('.000')) returnnumber = returnnumber.replace('.000','');
-            return returnnumber;
-        }
-
-        request.send();
 
         var table = $('table');
         //var test = '6,844';
