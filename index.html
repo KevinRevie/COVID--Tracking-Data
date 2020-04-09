@@ -13,12 +13,16 @@
     <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
     <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
     <i>(The State Testing Data is updated as new data comes in)</i></p>
+    <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
+    <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
     <table>
     <thead>
         <tr>
             <th id="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
             <th id="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <th id="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="newpositive">New Positive<sup><i>1</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="dailydoublingrate">Daily Doubling Rate<sup><i>2</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <th id="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <th id="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <th id="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
@@ -226,6 +230,67 @@ jQuery.fn.sortElements = (function(){
 
         const app = document.getElementById('root');
 
+
+        //lets find the number of new cases
+        var requestnew2 = new XMLHttpRequest();
+        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', true);
+        var today = new Date();
+        var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate() - 1)).slice(-2);
+        $('#yesterdaydatedisplay').text(('0' + (today.getMonth() + 1)).slice(-2) + '/' + ('0' + (today.getDate() - 1)).slice(-2) + '/' + today.getFullYear());
+        $('#yesterdaydatedisplay2').text($('#yesterdaydatedisplay').text());
+        var twodaysagodate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate() - 2)).slice(-2);
+        $('#twodaysagodatedisplay').text(('0' + (today.getMonth() + 1)).slice(-2) + '/' + ('0' + (today.getDate() - 2)).slice(-2) + '/' + today.getFullYear());
+        //console.log('yesterdaydate:' + yesterdaydate + ':twodaysagodate:' + twodaysagodate);
+        var yesterdaytotal = 0;
+        var twodaysagototal = 0;
+        var usnew = 0;
+        requestnew2.onload = function () {
+            // Begin accessing JSON data here
+            if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                var data = JSON.parse(this.response);
+                data.forEach(daydata => {
+                    //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
+                    if (daydata.date.toString() == yesterdaydate.toString()) {
+                        yesterdaytotal = daydata.positive;
+                    }
+                    if (daydata.date.toString() == twodaysagodate.toString()) {
+                        twodaysagototal = daydata.positive;
+                    }
+                });
+                usnew = yesterdaytotal - twodaysagototal;
+                console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
+            }
+        }
+        requestnew2.send();
+
+        var requestnew = new XMLHttpRequest();
+        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', true);
+        var dictNew = {};
+        var addPairNew = function (myKey, myValue) {
+            dictNew[myKey] = myValue;
+        };
+        var giveValueNew = function (myKey) {
+            return dictNew[myKey];
+        };
+        requestnew.onload = function () {
+            // Begin accessing JSON data here
+            if (requestnew.status >= 200 && requestnew.status < 400) {
+                var data = JSON.parse(this.response);
+                data.forEach(daydata => {
+                    //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
+                    if (daydata.date.toString() == yesterdaydate.toString()) {
+                        addPairNew(daydata.state, daydata.positive);
+                    }
+                    if (daydata.date.toString() == twodaysagodate.toString()) {
+                        addPairNew(daydata.state, (giveValueNew(daydata.state)) - daydata.positive);
+                    }
+                });
+            }
+        }
+        requestnew.send();
+
+
+
         var request2 = new XMLHttpRequest();
         request2.open('GET', 'https://covidtracking.com/api/us', true);
         request2.onload = function () { 
@@ -284,6 +349,17 @@ jQuery.fn.sortElements = (function(){
                     var statecolumn3 = document.createElement('td');
                     statecolumn3.textContent = formatNumber(positive);
                     staterow.appendChild(statecolumn3);
+
+                    //new positive
+                    var rownewpositive = (alwaysdisplay ? usnew : giveValueNew(state.state));
+                    var statecolumnnewpositive = document.createElement('td');
+                    statecolumnnewpositive.textContent = formatNumber(rownewpositive);
+                    staterow.appendChild(statecolumnnewpositive);
+
+                    //daily doubling rate
+                    var statecolumndailydoubling = document.createElement('td');
+                    statecolumndailydoubling.textContent = formatNumber((positive / rownewpositive));
+                    staterow.appendChild(statecolumndailydoubling);
 
                     //negative
                     var negative = (state.negative ? state.negative : 0);
