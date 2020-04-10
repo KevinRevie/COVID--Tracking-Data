@@ -2,10 +2,31 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>COVID-19 Tracking Data</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>COVID-19 Tracking Data: Current Data By State</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/base.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="js/base.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,6 +34,7 @@
     <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
     <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
     <i>(The State Testing Data is updated as new data comes in)</i></p>
+    <p><a href="historical.html">Click here</a> to view the USA Daily Doubling Rate Historical Data Chart.</p>
     <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
     <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
     <table>
@@ -40,7 +62,7 @@
     </tbody>        
     </table>
     <script type="text/javascript">
-        /**
+/**
  * jQuery.fn.sortElements
  * --------------
  * @param Function comparator:
@@ -315,15 +337,6 @@ jQuery.fn.sortElements = (function(){
             }
         }
         request.send();
-        function formatNumber(numbertoformat) {
-            if (!numbertoformat) return '0';
-            var returnnumber = 0;
-            returnnumber = Number(parseFloat(numbertoformat).toFixed(3)).toLocaleString('en', {
-                    minimumFractionDigits: 3
-                });
-            if (returnnumber.toString().endsWith('.000')) returnnumber = returnnumber.replace('.000','');
-            return returnnumber;
-        }
 
 
         function printData(data, alwaysdisplay) {
@@ -468,15 +481,6 @@ jQuery.fn.sortElements = (function(){
             });
 
     </script>
-    <style type="text/css">
-        .container {text-align:center;}
-        table {width:100%;}
-        table td, table th {padding:10px;text-align:center;}
-        table thead th {font-weight: bold;background-color: #eee;border-bottom: 1px solid #999;border-right: 1px solid #999;}
-        table thead th:last-child {border-right: none;}
-        table thead th:hover {cursor: pointer;}
-        table tbody tr:hover {background:#eee;}
-    </style>
     </div>
 </body>
 </html>

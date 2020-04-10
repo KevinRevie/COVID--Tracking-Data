@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>COVID-19 Tracking Data: Historical Data</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/base.js"></script>
+
+</head>
+<body>
+    <div class="container">
+    <h1>COVID-19 Tracking Data</h1><h2>USA Daily Doubling Rate Historical Data Chart</h2>
+    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
+    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
+    <i>(The State Testing Data is updated as new data comes in)</i></p>
+    <p><a href="index.html">Click here</a> to view the COVID-19 current data by state.</p>
+    <canvas id="canvas"></canvas>
+
+
+    <script type="text/javascript">
+        
+        //lets find the data
+        var requestnew2 = new XMLHttpRequest();
+        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+        var today = new Date();
+        var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate())).slice(-2);
+        var returndata = [];
+        var started = false;
+        var previousdata = 0;
+        requestnew2.onload = function () {
+            // Begin accessing JSON data here
+            if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                var data = JSON.parse(this.response);
+                data.reverse();
+                data.forEach(daydata => {
+                    //console.log('date:' + daydata.date.toString());
+                    if (started && daydata.date.toString() < yesterdaydate.toString()) {
+                        var usnew = daydata.positive - previousdata;
+                        var dateval = daydata.date.toString();
+                        returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2)+'/'+dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
+                    }
+                    previousdata = daydata.positive;
+                    started = true;
+                });
+            }
+        }
+        requestnew2.send();
+
+        var requestnew = new XMLHttpRequest();
+        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
+        var today = new Date();
+        var returndataAZ = [];
+        var returndataNY = [];
+        var started = false;
+        var previousdataAZ = 0;
+        var previousdataNY = 0;
+        requestnew.onload = function () {
+            // Begin accessing JSON data here
+            if (requestnew.status >= 200 && requestnew.status < 400) {
+                var data = JSON.parse(this.response);
+                data.reverse();
+                data.forEach(daydata => {
+                    //console.log('date:' + daydata.date.toString());
+                    if (daydata.state == 'AZ' && started && daydata.date.toString() < yesterdaydate.toString()) {
+                        var usnew = daydata.positive - previousdataAZ;
+                        if (previousdataAZ > daydata.positive) usnew = 1;
+                        var dateval = daydata.date.toString();
+                        var datestr = dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4);
+                        returndataAZ.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
+                        previousdataAZ = daydata.positive;
+                    }
+                    if (daydata.state == 'NY' && started && daydata.date.toString() < yesterdaydate.toString()) {
+                        var usnew = daydata.positive - previousdataNY;
+                        if (previousdataNY > daydata.positive) usnew = 1;
+                        var dateval = daydata.date.toString();
+                        var datestr = dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4);
+                        returndataNY.push({ x: datestr, y: formatNumber((daydata.positive / usnew)) });
+                        previousdataNY = daydata.positive;
+                        var newnum = formatNumber((daydata.positive / usnew));
+                        console.log('date:' + datestr + ':previousdataNY:' + previousdataNY + ':val:' + formatNumber((daydata.positive / usnew)))
+                    }
+                    started = true;
+                });
+            }
+        }
+        requestnew.send();
+
+		var color = Chart.helpers.color;
+		var config = {
+			type: 'line',
+			data: {
+				datasets: [{
+                    label: 'USA',
+					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+					borderColor: window.chartColors.blue,
+					fill: false,
+                    data: returndata,
+                }, /*{
+                        label: 'AZ',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.orange,
+                        fill: false,
+                        data: returndataAZ,
+                    },*/ {
+                        label: 'NY',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.green,
+                        fill: false,
+                        data: returndataNY,
+                    }]
+			},
+			options: {
+                responsive: true, 
+				title: {
+					display: true,
+                    text: 'Daily Doubling Rate Historical Data'
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Date'
+						},
+						ticks: {
+							major: {
+								fontStyle: 'bold',
+								fontColor: '#FF0000'
+							}
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'value'
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+    </script>
+    </div>
+</body>
+</html>

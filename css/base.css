@@ -1,0 +1,8 @@
+
+.container {text-align:center;}
+table {width:100%;}
+table td, table th {padding:10px;text-align:center;}
+table thead th {font-weight: bold;background-color: #eee;border-bottom: 1px solid #999;border-right: 1px solid #999;}
+table thead th:last-child {border-right: none;}
+table thead th:hover {cursor: pointer;}
+table tbody tr:hover {background:#eee;}
