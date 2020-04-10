@@ -233,7 +233,7 @@ jQuery.fn.sortElements = (function(){
 
         //lets find the number of new cases
         var requestnew2 = new XMLHttpRequest();
-        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', true);
+        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
         var today = new Date();
         var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate() - 1)).slice(-2);
         $('#yesterdaydatedisplay').text(('0' + (today.getMonth() + 1)).slice(-2) + '/' + ('0' + (today.getDate() - 1)).slice(-2) + '/' + today.getFullYear());
@@ -258,13 +258,13 @@ jQuery.fn.sortElements = (function(){
                     }
                 });
                 usnew = yesterdaytotal - twodaysagototal;
-                console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
+                //console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
             }
         }
         requestnew2.send();
 
         var requestnew = new XMLHttpRequest();
-        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', true);
+        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
         var dictNew = {};
         var addPairNew = function (myKey, myValue) {
             dictNew[myKey] = myValue;
@@ -292,7 +292,7 @@ jQuery.fn.sortElements = (function(){
 
 
         var request2 = new XMLHttpRequest();
-        request2.open('GET', 'https://covidtracking.com/api/us', true);
+        request2.open('GET', 'https://covidtracking.com/api/us', false);
         request2.onload = function () { 
             // Begin accessing JSON data here
             if (request2.status >= 200 && request2.status < 400) {
@@ -302,7 +302,7 @@ jQuery.fn.sortElements = (function(){
         }
         request2.send();
         var request = new XMLHttpRequest();
-        request.open('GET', 'https://covidtracking.com/api/states', true);
+        request.open('GET', 'https://covidtracking.com/api/states', false);
         request.onload = function () {
             // Begin accessing JSON data here
             if (request.status >= 200 && request.status < 400) {
