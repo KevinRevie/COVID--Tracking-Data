@@ -22,21 +22,92 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha256-/ykJw/wDxMa0AQhHDYfuMEwVb4JHMx9h4jD4XvHqVzU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.css" integrity="sha256-pok3KZeHPJvZi4o04UfObTBGUAIkwF/zZWbh+UuKaoE=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/base.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.js" integrity="sha256-BnQCXjVFnK5zlaIT0cvrOOITZrgLfch+T2Exz4tUISE=" crossorigin="anonymous"></script>
     <script src="js/base.js"></script>
 </head>
 <body>
     <div class="container">
     <h1>COVID-19 Tracking Data</h1>
-    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
-    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
-    <i>(The State Testing Data is updated as new data comes in)</i></p>
-    <p><a href="historical.html">Click here</a> to view the USA Daily Doubling Rate Historical Data Chart.</p>
-    <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
-    <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Current Data by State</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="historical.html">Historical Daily Doubling Rate</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              New Infected/New Deaths Historical Data
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="state-historical.html?state=USA">USA</a>
+                <a class="dropdown-item" href="state-historical.html?state=AL">AL</a>
+                <a class="dropdown-item" href="state-historical.html?state=AK">AK</a>
+                <a class="dropdown-item" href="state-historical.html?state=AZ">AZ</a>
+                <a class="dropdown-item" href="state-historical.html?state=AR">AR</a>
+                <a class="dropdown-item" href="state-historical.html?state=CA">CA</a>
+                <a class="dropdown-item" href="state-historical.html?state=CO">CO</a>
+                <a class="dropdown-item" href="state-historical.html?state=CT">CT</a>
+                <a class="dropdown-item" href="state-historical.html?state=DC">DC</a>
+                <a class="dropdown-item" href="state-historical.html?state=DE">DE</a>
+                <a class="dropdown-item" href="state-historical.html?state=FL">FL</a>
+                <a class="dropdown-item" href="state-historical.html?state=GA">GA</a>
+                <a class="dropdown-item" href="state-historical.html?state=HI">HI</a>
+                <a class="dropdown-item" href="state-historical.html?state=ID">ID</a>
+                <a class="dropdown-item" href="state-historical.html?state=IL">IL</a>
+                <a class="dropdown-item" href="state-historical.html?state=IN">IN</a>
+                <a class="dropdown-item" href="state-historical.html?state=IA">IA</a>
+                <a class="dropdown-item" href="state-historical.html?state=KS">KS</a>
+                <a class="dropdown-item" href="state-historical.html?state=KY">KY</a>
+                <a class="dropdown-item" href="state-historical.html?state=LA">LA</a>
+                <a class="dropdown-item" href="state-historical.html?state=ME">ME</a>
+                <a class="dropdown-item" href="state-historical.html?state=MD">MD</a>
+                <a class="dropdown-item" href="state-historical.html?state=MA">MA</a>
+                <a class="dropdown-item" href="state-historical.html?state=MI">MI</a>
+                <a class="dropdown-item" href="state-historical.html?state=MN">MN</a>
+                <a class="dropdown-item" href="state-historical.html?state=MS">MS</a>
+                <a class="dropdown-item" href="state-historical.html?state=MO">MO</a>
+                <a class="dropdown-item" href="state-historical.html?state=MT">MT</a>
+                <a class="dropdown-item" href="state-historical.html?state=NE">NE</a>
+                <a class="dropdown-item" href="state-historical.html?state=NV">NV</a>
+                <a class="dropdown-item" href="state-historical.html?state=NH">NH</a>
+                <a class="dropdown-item" href="state-historical.html?state=NJ">NJ</a>
+                <a class="dropdown-item" href="state-historical.html?state=NM">NM</a>
+                <a class="dropdown-item" href="state-historical.html?state=NY">NY</a>
+                <a class="dropdown-item" href="state-historical.html?state=NC">NC</a>
+                <a class="dropdown-item" href="state-historical.html?state=ND">ND</a>
+                <a class="dropdown-item" href="state-historical.html?state=OH">OH</a>
+                <a class="dropdown-item" href="state-historical.html?state=OK">OK</a>
+                <a class="dropdown-item" href="state-historical.html?state=OR">OR</a>
+                <a class="dropdown-item" href="state-historical.html?state=PA">PA</a>
+                <a class="dropdown-item" href="state-historical.html?state=RI">RI</a>
+                <a class="dropdown-item" href="state-historical.html?state=SC">SC</a>
+                <a class="dropdown-item" href="state-historical.html?state=SD">SD</a>
+                <a class="dropdown-item" href="state-historical.html?state=TN">TN</a>
+                <a class="dropdown-item" href="state-historical.html?state=TX">TX</a>
+                <a class="dropdown-item" href="state-historical.html?state=UT">UT</a>
+                <a class="dropdown-item" href="state-historical.html?state=VT">VT</a>
+                <a class="dropdown-item" href="state-historical.html?state=VA">VA</a>
+                <a class="dropdown-item" href="state-historical.html?state=WA">WA</a>
+                <a class="dropdown-item" href="state-historical.html?state=WV">WV</a>
+                <a class="dropdown-item" href="state-historical.html?state=WI">WI</a>
+                <a class="dropdown-item" href="state-historical.html?state=WY">WY</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h2>Current Data by State</h2>
     <table>
     <thead>
         <tr>
@@ -60,7 +131,12 @@
     <tbody id="root">
 
     </tbody>        
-    </table>
+    </table><br />
+    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
+    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
+    <i>(The State Testing Data is updated as new data comes in)</i></p>
+    <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
+    <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
     <script type="text/javascript">
 /**
  * jQuery.fn.sortElements

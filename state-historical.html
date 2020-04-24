@@ -112,110 +112,107 @@
         </ul>
       </div>
     </nav>
-    <h2>USA Daily Doubling Rate Historical Data Chart</h2>
+    <h2>New Infected/New Deaths Historical Data For <span id="statename"></span></h2>
     <canvas id="canvas"></canvas><br />
-    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
     <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
     <i>(The State Testing Data is updated as new data comes in)</i></p>
 
 
     <script type="text/javascript">
-        
-        //lets find the data
-        var requestnew2 = new XMLHttpRequest();
-        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        var whichstate = getParameterByName('state');
+        $('#statename').text(whichstate);
+        var returndata = [];
+        var returndatainfected = [];
         var today = new Date();
         var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate())).slice(-2);
-        var returndata = [];
         var started = false;
         var previousdata = 0;
-        requestnew2.onload = function () {
-            // Begin accessing JSON data here
-            if (requestnew2.status >= 200 && requestnew2.status < 400) {
-                var data = JSON.parse(this.response);
-                data.reverse();
-                data.forEach(daydata => {
-                    //console.log('date:' + daydata.date.toString());
-                    if (started && daydata.date.toString() < yesterdaydate.toString()) {
-                        var usnew = daydata.positive - previousdata;
-                        var dateval = daydata.date.toString();
-                        returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2)+'/'+dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
-                    }
-                    previousdata = daydata.positive;
-                    started = true;
-                });
+        var previousdatadeath = 0;
+        if (whichstate == 'USA') {
+            //lets find the data
+            var requestnew2 = new XMLHttpRequest();
+            requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+            requestnew2.onload = function () {
+                // Begin accessing JSON data here
+                if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                    var data = JSON.parse(this.response);
+                    data.reverse();
+                    data.forEach(daydata => {
+                        //console.log('date:' + daydata.date.toString());
+                        if (started && daydata.date.toString() < yesterdaydate.toString()) {
+                            var usnew = daydata.positive - previousdata;
+                            var usnewdeath = daydata.death - previousdatadeath;
+                            var dateval = daydata.date.toString();
+                            returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
+                            returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+                        }
+                        previousdata = daydata.positive;
+                        previousdatadeath = daydata.death;
+                        started = true;
+                    });
+                }
             }
-        }
-        requestnew2.send();
+            requestnew2.send();
+        } else {
 
-        var requestnew = new XMLHttpRequest();
-        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
-        var today = new Date();
-        var returndataAZ = [];
-        var returndataNY = [];
-        var started = false;
-        var previousdataAZ = 0;
-        var previousdataNY = 0;
-        requestnew.onload = function () {
-            // Begin accessing JSON data here
-            if (requestnew.status >= 200 && requestnew.status < 400) {
-                var data = JSON.parse(this.response);
-                data.reverse();
-                data.forEach(daydata => {
-                    //console.log('date:' + daydata.date.toString());
-                    if (daydata.state == 'AZ' && started && daydata.date.toString() < yesterdaydate.toString()) {
-                        var usnew = daydata.positive - previousdataAZ;
-                        if (previousdataAZ > daydata.positive) usnew = 1;
-                        var dateval = daydata.date.toString();
-                        var datestr = dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4);
-                        returndataAZ.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
-                        previousdataAZ = daydata.positive;
-                    }
-                    if (daydata.state == 'NY' && started && daydata.date.toString() < yesterdaydate.toString()) {
-                        var usnew = daydata.positive - previousdataNY;
-                        if (previousdataNY > daydata.positive) usnew = 1;
-                        var dateval = daydata.date.toString();
-                        var datestr = dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4);
-                        returndataNY.push({ x: datestr, y: formatNumber((daydata.positive / usnew)) });
-                        previousdataNY = daydata.positive;
-                        var newnum = formatNumber((daydata.positive / usnew));
-                        //console.log('date:' + datestr + ':previousdataNY:' + previousdataNY + ':val:' + formatNumber((daydata.positive / usnew)))
-                    }
-                    started = true;
-                });
+            var requestnew = new XMLHttpRequest();
+            requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
+            requestnew.onload = function () {
+                // Begin accessing JSON data here
+                if (requestnew.status >= 200 && requestnew.status < 400) {
+                    var data = JSON.parse(this.response);
+                    data.reverse();
+                    data.forEach(daydata => {
+                        //console.log('date:' + daydata.date.toString());
+                        if (daydata.state == whichstate && started && daydata.date.toString() < yesterdaydate.toString()) {
+                            var usnew = daydata.positive - previousdata;
+                            var usnewdeath = daydata.death - previousdatadeath;
+                            var dateval = daydata.date.toString();
+                            returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
+                            returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+                            previousdata = daydata.positive;
+                            previousdatadeath = daydata.death;
+                        }
+                        started = true;
+                    });
+                }
             }
+            requestnew.send();
         }
-        requestnew.send();
 
 		var color = Chart.helpers.color;
 		var config = {
 			type: 'line',
 			data: {
 				datasets: [{
-                    label: 'USA',
+                    label: 'New Deaths',
 					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-					borderColor: window.chartColors.blue,
+					borderColor: window.chartColors.red,
 					fill: false,
                     data: returndata,
                 }, {
-                        label: 'AZ',
+                        label: 'New Infected',
                         backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
                         borderColor: window.chartColors.orange,
                         fill: false,
-                        data: returndataAZ,
-                    }, {
-                        label: 'NY',
-                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-                        borderColor: window.chartColors.green,
-                        fill: false,
-                        data: returndataNY,
+                        data: returndatainfected,
                     }]
 			},
 			options: {
                 responsive: true, 
 				title: {
 					display: true,
-                    text: 'Daily Doubling Rate Historical Data'
+                    text: 'New Infected/New Deaths Historical Data'
 				},
 				scales: {
 					xAxes: [{
