@@ -134,7 +134,8 @@
             if (requestnew2.status >= 200 && requestnew2.status < 400) {
                 var data = JSON.parse(this.response);
                 data.reverse();
-                data.forEach(daydata => {
+                for (var i = 0; i < data.length; i++) {
+                    var daydata = data[i];   
                     //console.log('date:' + daydata.date.toString());
                     if (started && daydata.date.toString() < yesterdaydate.toString()) {
                         var usnew = daydata.positive - previousdata;
@@ -143,7 +144,7 @@
                     }
                     previousdata = daydata.positive;
                     started = true;
-                });
+                }
             }
         }
         requestnew2.send();
@@ -161,7 +162,8 @@
             if (requestnew.status >= 200 && requestnew.status < 400) {
                 var data = JSON.parse(this.response);
                 data.reverse();
-                data.forEach(daydata => {
+                for (var i = 0; i < data.length; i++) {
+                    var daydata = data[i];   
                     //console.log('date:' + daydata.date.toString());
                     if (daydata.state == 'AZ' && started && daydata.date.toString() < yesterdaydate.toString()) {
                         var usnew = daydata.positive - previousdataAZ;
@@ -182,7 +184,7 @@
                         //console.log('date:' + datestr + ':previousdataNY:' + previousdataNY + ':val:' + formatNumber((daydata.positive / usnew)))
                     }
                     started = true;
-                });
+                }
             }
         }
         requestnew.send();

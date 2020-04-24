@@ -8,3 +8,20 @@ table thead th:hover {cursor: pointer;}
 table tbody tr:hover {background:#eee;}
 
 .navbar-nav {margin-left: auto;margin-right: auto;}
+
+
+@media only screen and (max-width: 1199px) {
+  .hospitalized {display:none;}
+}
+@media only screen and (max-width: 991px) {
+  .pending, .negative, .dailydoublingrate {display:none;}
+}
+@media only screen and (max-width: 767px) {
+  .population, .newpositive {display:none;}
+}
+@media only screen and (max-width: 525px) {
+  .percent {display:none;}
+}
+@media only screen and (max-width: 450px) {
+  .totaltests, .positivepercent {display:none;}
+}

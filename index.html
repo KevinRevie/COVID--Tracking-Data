@@ -111,20 +111,20 @@
     <table>
     <thead>
         <tr>
-            <th id="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
-            <th id="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="newpositive">New Positive<sup><i>1</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="dailydoublingrate">Daily Doubling Rate<sup><i>2</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="totaltests">Total Tests Taken <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="hospitalized">Hospitalized <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="deaths">Deaths <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="state" class="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
+            <th id="population" class="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="positive" class="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="newpositive" class="newpositive">New Positive<sup><i>1</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="dailydoublingrate" class="dailydoublingrate">Daily Doubling Rate<sup><i>2</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="negative" class="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="positivepercent" class="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="pending" class="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="totaltests" class="totaltests">Total Tests Taken <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="hospitalized" class="hospitalized">Hospitalized <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="deaths" class="deaths">Deaths <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <!--<th id="total">Total test results<br />(Positive + Negative)</th>-->
             <!--<th id="percentpositive">Percent of Tests Positive</th>-->
-            <th id="percent">Percent of Population Tested <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+            <th id="percent" class="percent">Percent of Population Tested <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
             <!--<th id="governor">Governor <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>-->
         </tr>
     </thead>
@@ -132,7 +132,7 @@
 
     </tbody>        
     </table><br />
-    <p><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
+    <p class="population"><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
     <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
     <i>(The State Testing Data is updated as new data comes in)</i></p>
     <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
@@ -346,7 +346,8 @@ jQuery.fn.sortElements = (function(){
             // Begin accessing JSON data here
             if (requestnew2.status >= 200 && requestnew2.status < 400) {
                 var data = JSON.parse(this.response);
-                data.forEach(daydata => {
+                for (var i = 0; i < data.length; i++) {
+                    var daydata = data[i];   
                     //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
                     if (daydata.date.toString() == yesterdaydate.toString()) {
                         yesterdaytotal = daydata.positive;
@@ -354,7 +355,7 @@ jQuery.fn.sortElements = (function(){
                     if (daydata.date.toString() == twodaysagodate.toString()) {
                         twodaysagototal = daydata.positive;
                     }
-                });
+                }
                 usnew = yesterdaytotal - twodaysagototal;
                 //console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
             }
@@ -374,7 +375,8 @@ jQuery.fn.sortElements = (function(){
             // Begin accessing JSON data here
             if (requestnew.status >= 200 && requestnew.status < 400) {
                 var data = JSON.parse(this.response);
-                data.forEach(daydata => {
+                for (var i = 0; i < data.length; i++) {
+                    var daydata = data[i];   
                     //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
                     if (daydata.date.toString() == yesterdaydate.toString()) {
                         addPairNew(daydata.state, daydata.positive);
@@ -382,7 +384,7 @@ jQuery.fn.sortElements = (function(){
                     if (daydata.date.toString() == twodaysagodate.toString()) {
                         addPairNew(daydata.state, (giveValueNew(daydata.state)) - daydata.positive);
                     }
-                });
+                }
             }
         }
         requestnew.send();
@@ -408,7 +410,7 @@ jQuery.fn.sortElements = (function(){
                 printData(data,false);
             } else {
                 const errorMessage = document.createElement('marquee');
-                errorMessage.textContent = `Gah, it's not working!`;
+                errorMessage.textContent = 'Not working!';
                 app.appendChild(errorMessage);
             }
         }
@@ -416,72 +418,85 @@ jQuery.fn.sortElements = (function(){
 
 
         function printData(data, alwaysdisplay) {
-            data.forEach(state => {
+            for (var i = 0; i < data.length; i++) {
+            //data.forEach(state => {
+                var state = data[i];    
                 if (alwaysdisplay || parseInt(giveValue(state.state)) > 0) {
                     const staterow = document.createElement('tr');
-                    staterow.setAttribute('class', state.state);
+                    staterow.setAttribute('class', (alwaysdisplay ? ' USA' : state.state));
 
                     //{"state":"AZ","positive":470,"positiveScore":1,"negativeScore":1,"negativeRegularScore":1,"commercialScore":0,"grade":"B","score":3,
                     //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
                     //state
                     var statecolumn = document.createElement('td');
+                    statecolumn.setAttribute('class', 'state');
                     statecolumn.textContent = (alwaysdisplay?' USA':state.state);
                     staterow.appendChild(statecolumn);
 
                     //population  
                     var statecolumn2 = document.createElement('td');
+                    statecolumn2.setAttribute('class', 'population');
                     statecolumn2.textContent = (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state)));
                     staterow.appendChild(statecolumn2);
 
                     //positive
                     var positive = (state.positive ? state.positive : 0);
                     var statecolumn3 = document.createElement('td');
+                    statecolumn3.setAttribute('class', 'positive');
                     statecolumn3.textContent = formatNumber(positive);
                     staterow.appendChild(statecolumn3);
 
                     //new positive
                     var rownewpositive = (alwaysdisplay ? usnew : giveValueNew(state.state));
                     var statecolumnnewpositive = document.createElement('td');
+                    statecolumnnewpositive.setAttribute('class', 'newpositive');
                     statecolumnnewpositive.textContent = formatNumber(rownewpositive);
                     staterow.appendChild(statecolumnnewpositive);
 
                     //daily doubling rate
                     var statecolumndailydoubling = document.createElement('td');
                     statecolumndailydoubling.textContent = formatNumber((positive / rownewpositive));
+                    statecolumndailydoubling.setAttribute('class', 'dailydoublingrate');
                     staterow.appendChild(statecolumndailydoubling);
 
                     //negative
                     var negative = (state.negative ? state.negative : 0);
                     var statecolumn4 = document.createElement('td');
                     statecolumn4.textContent = formatNumber(negative);
+                    statecolumn4.setAttribute('class', 'negative');
                     staterow.appendChild(statecolumn4);
 
                     //positivepercent
                     var totaltests2 = parseInt(positive) + parseInt(negative);
                     var statecolumn11 = document.createElement('td');
                     statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString() + '%';
+                    statecolumn11.setAttribute('class', 'positivepercent');
                     staterow.appendChild(statecolumn11);
 
                     //pending
                     var pending = (state.pending ? state.pending : 0);
                     var statecolumn5 = document.createElement('td');
                     statecolumn5.textContent = formatNumber(pending);
+                    statecolumn5.setAttribute('class', 'pending');
                     staterow.appendChild(statecolumn5);
 
                     //totaltests
                     var totaltests = parseInt(positive) + parseInt(negative) + parseInt(pending);
-                    var statecolumn11 = document.createElement('td');
-                    statecolumn11.textContent = formatNumber(totaltests);
-                    staterow.appendChild(statecolumn11);
+                    var statecolumntotaltests = document.createElement('td');
+                    statecolumntotaltests.textContent = formatNumber(totaltests);
+                    statecolumntotaltests.setAttribute('class', 'totaltests');
+                    staterow.appendChild(statecolumntotaltests);
 
                     //hospitalized
                     var statecolumn6 = document.createElement('td');
                     statecolumn6.textContent = formatNumber(state.hospitalized);
+                    statecolumn6.setAttribute('class', 'hospitalized');
                     staterow.appendChild(statecolumn6);
 
                     //deaths
                     var statecolumn7 = document.createElement('td');
                     statecolumn7.textContent = formatNumber(state.death);
+                    statecolumn7.setAttribute('class', 'deaths');
                     staterow.appendChild(statecolumn7);
 
                     //total
@@ -498,6 +513,7 @@ jQuery.fn.sortElements = (function(){
                     //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
                     var statecolumn9 = document.createElement('td');
                     statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? 325386357 : giveValue(state.state)) * 100).toString() + '%';
+                    statecolumn9.setAttribute('class', 'percent');
                     staterow.appendChild(statecolumn9);
 
                     //governor
@@ -507,7 +523,7 @@ jQuery.fn.sortElements = (function(){
 
                     app.appendChild(staterow);
                 }
-            });
+            }
         }
 
         var table = $('table');
