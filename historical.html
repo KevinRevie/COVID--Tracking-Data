@@ -125,7 +125,10 @@
         var requestnew2 = new XMLHttpRequest();
         requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
         var today = new Date();
-        var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate())).slice(-2);
+
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
         var returndata = [];
         var started = false;
         var previousdata = 0;
@@ -137,7 +140,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var daydata = data[i];   
                     //console.log('date:' + daydata.date.toString());
-                    if (started && daydata.date.toString() < yesterdaydate.toString()) {
+                    if (started && daydata.date.toString() <= yesterdaydate.toString()) {
                         var usnew = daydata.positive - previousdata;
                         var dateval = daydata.date.toString();
                         returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2)+'/'+dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
@@ -165,7 +168,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var daydata = data[i];   
                     //console.log('date:' + daydata.date.toString());
-                    if (daydata.state == 'AZ' && started && daydata.date.toString() < yesterdaydate.toString()) {
+                    if (daydata.state == 'AZ' && started && daydata.date.toString() <= yesterdaydate.toString()) {
                         var usnew = daydata.positive - previousdataAZ;
                         if (previousdataAZ > daydata.positive) usnew = 1;
                         var dateval = daydata.date.toString();
@@ -173,7 +176,7 @@
                         returndataAZ.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: formatNumber((daydata.positive / usnew)) });
                         previousdataAZ = daydata.positive;
                     }
-                    if (daydata.state == 'NY' && started && daydata.date.toString() < yesterdaydate.toString()) {
+                    if (daydata.state == 'NY' && started && daydata.date.toString() <= yesterdaydate.toString()) {
                         var usnew = daydata.positive - previousdataNY;
                         if (previousdataNY > daydata.positive) usnew = 1;
                         var dateval = daydata.date.toString();

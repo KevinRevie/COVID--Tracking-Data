@@ -134,7 +134,9 @@
         var returndata = [];
         var returndatainfected = [];
         var today = new Date();
-        var yesterdaydate = today.getFullYear() + '' + ('0' + (today.getMonth() + 1)).slice(-2) + '' + ('0' + (today.getDate())).slice(-2);
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
         var started = false;
         var previousdata = 0;
         var previousdatadeath = 0;
@@ -150,7 +152,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var daydata = data[i];   
                         //console.log('date:' + daydata.date.toString());
-                        if (started && daydata.date.toString() < yesterdaydate.toString()) {
+                        if (started && daydata.date.toString() <= yesterdaydate.toString()) {
                             var usnew = daydata.positive - previousdata;
                             var usnewdeath = daydata.death - previousdatadeath;
                             var dateval = daydata.date.toString();
@@ -176,7 +178,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var daydata = data[i];   
                         //console.log('date:' + daydata.date.toString());
-                        if (daydata.state == whichstate && started && daydata.date.toString() < yesterdaydate.toString()) {
+                        if (daydata.state == whichstate && started && daydata.date.toString() <= yesterdaydate.toString()) {
                             var usnew = daydata.positive - previousdata;
                             var usnewdeath = daydata.death - previousdatadeath;
                             var dateval = daydata.date.toString();
