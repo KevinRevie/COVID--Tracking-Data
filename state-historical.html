@@ -433,7 +433,7 @@
                 $('.' + datatype).addClass('active');
                 var ctx = document.getElementById('canvas').getContext('2d');
                 if (datatype === 'infectedhistorical') {
-                    $('#reportname').html('Infected Totals By Day');
+                    $('#reportname').html('Infection Totals By Day');
                     window.myLine = new Chart(ctx, configinfectedhistorical);
                 } else if (datatype === 'tested') {
                     $('#reportname').html('New COVID-19 Tests By Day');
