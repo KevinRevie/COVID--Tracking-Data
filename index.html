@@ -22,6 +22,12 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <meta property="og:url" content="https://hopeful-davinci-d08be0.netlify.app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="COVID-19 Tracking Data" />
+    <meta property="og:description" content="Current COVID-19 data for all 50 states." />
+    <meta property="og:image" content="https://hopeful-davinci-d08be0.netlify.app/images/index.gif" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.css" integrity="sha256-pok3KZeHPJvZi4o04UfObTBGUAIkwF/zZWbh+UuKaoE=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/base.css" />
@@ -30,553 +36,615 @@
     <script src="js/base.js"></script>
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=1823177061342795&autoLogAppEvents=1" nonce="AzpdaUOk"></script>
     <div class="container">
-    <h1>COVID-19 Tracking Data</h1>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <h1>COVID-19 Tracking Data</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Current Data by State</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="historical.html">Historical Daily Doubling Rate</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              New Infected/New Deaths Historical Data
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="state-historical.html?state=USA">USA</a>
-                <a class="dropdown-item" href="state-historical.html?state=AL">AL</a>
-                <a class="dropdown-item" href="state-historical.html?state=AK">AK</a>
-                <a class="dropdown-item" href="state-historical.html?state=AZ">AZ</a>
-                <a class="dropdown-item" href="state-historical.html?state=AR">AR</a>
-                <a class="dropdown-item" href="state-historical.html?state=CA">CA</a>
-                <a class="dropdown-item" href="state-historical.html?state=CO">CO</a>
-                <a class="dropdown-item" href="state-historical.html?state=CT">CT</a>
-                <a class="dropdown-item" href="state-historical.html?state=DC">DC</a>
-                <a class="dropdown-item" href="state-historical.html?state=DE">DE</a>
-                <a class="dropdown-item" href="state-historical.html?state=FL">FL</a>
-                <a class="dropdown-item" href="state-historical.html?state=GA">GA</a>
-                <a class="dropdown-item" href="state-historical.html?state=HI">HI</a>
-                <a class="dropdown-item" href="state-historical.html?state=ID">ID</a>
-                <a class="dropdown-item" href="state-historical.html?state=IL">IL</a>
-                <a class="dropdown-item" href="state-historical.html?state=IN">IN</a>
-                <a class="dropdown-item" href="state-historical.html?state=IA">IA</a>
-                <a class="dropdown-item" href="state-historical.html?state=KS">KS</a>
-                <a class="dropdown-item" href="state-historical.html?state=KY">KY</a>
-                <a class="dropdown-item" href="state-historical.html?state=LA">LA</a>
-                <a class="dropdown-item" href="state-historical.html?state=ME">ME</a>
-                <a class="dropdown-item" href="state-historical.html?state=MD">MD</a>
-                <a class="dropdown-item" href="state-historical.html?state=MA">MA</a>
-                <a class="dropdown-item" href="state-historical.html?state=MI">MI</a>
-                <a class="dropdown-item" href="state-historical.html?state=MN">MN</a>
-                <a class="dropdown-item" href="state-historical.html?state=MS">MS</a>
-                <a class="dropdown-item" href="state-historical.html?state=MO">MO</a>
-                <a class="dropdown-item" href="state-historical.html?state=MT">MT</a>
-                <a class="dropdown-item" href="state-historical.html?state=NE">NE</a>
-                <a class="dropdown-item" href="state-historical.html?state=NV">NV</a>
-                <a class="dropdown-item" href="state-historical.html?state=NH">NH</a>
-                <a class="dropdown-item" href="state-historical.html?state=NJ">NJ</a>
-                <a class="dropdown-item" href="state-historical.html?state=NM">NM</a>
-                <a class="dropdown-item" href="state-historical.html?state=NY">NY</a>
-                <a class="dropdown-item" href="state-historical.html?state=NC">NC</a>
-                <a class="dropdown-item" href="state-historical.html?state=ND">ND</a>
-                <a class="dropdown-item" href="state-historical.html?state=OH">OH</a>
-                <a class="dropdown-item" href="state-historical.html?state=OK">OK</a>
-                <a class="dropdown-item" href="state-historical.html?state=OR">OR</a>
-                <a class="dropdown-item" href="state-historical.html?state=PA">PA</a>
-                <a class="dropdown-item" href="state-historical.html?state=RI">RI</a>
-                <a class="dropdown-item" href="state-historical.html?state=SC">SC</a>
-                <a class="dropdown-item" href="state-historical.html?state=SD">SD</a>
-                <a class="dropdown-item" href="state-historical.html?state=TN">TN</a>
-                <a class="dropdown-item" href="state-historical.html?state=TX">TX</a>
-                <a class="dropdown-item" href="state-historical.html?state=UT">UT</a>
-                <a class="dropdown-item" href="state-historical.html?state=VT">VT</a>
-                <a class="dropdown-item" href="state-historical.html?state=VA">VA</a>
-                <a class="dropdown-item" href="state-historical.html?state=WA">WA</a>
-                <a class="dropdown-item" href="state-historical.html?state=WV">WV</a>
-                <a class="dropdown-item" href="state-historical.html?state=WI">WI</a>
-                <a class="dropdown-item" href="state-historical.html?state=WY">WY</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Current Data by State</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="historical.html">Daily Doubling Rate</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            New Infected/New Deaths
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="state-historical.html?state=USA">USA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AL">AL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AK">AK</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AZ">AZ</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AR">AR</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CA">CA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CO">CO</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CT">CT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=DC">DC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=DE">DE</a>
+                            <a class="dropdown-item" href="state-historical.html?state=FL">FL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=GA">GA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=HI">HI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ID">ID</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IL">IL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IN">IN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IA">IA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=KS">KS</a>
+                            <a class="dropdown-item" href="state-historical.html?state=KY">KY</a>
+                            <a class="dropdown-item" href="state-historical.html?state=LA">LA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ME">ME</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MD">MD</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MA">MA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MI">MI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MN">MN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MS">MS</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MO">MO</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MT">MT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NE">NE</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NV">NV</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NH">NH</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NJ">NJ</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NM">NM</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NY">NY</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NC">NC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ND">ND</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OH">OH</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OK">OK</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OR">OR</a>
+                            <a class="dropdown-item" href="state-historical.html?state=PA">PA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=RI">RI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=SC">SC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=SD">SD</a>
+                            <a class="dropdown-item" href="state-historical.html?state=TN">TN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=TX">TX</a>
+                            <a class="dropdown-item" href="state-historical.html?state=UT">UT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=VT">VT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=VA">VA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WA">WA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WV">WV</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WI">WI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WY">WY</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle infectedhistorical" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Infection Totals
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=USA">USA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AL">AL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AK">AK</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AZ">AZ</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AR">AR</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CA">CA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CO">CO</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CT">CT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=DC">DC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=DE">DE</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=FL">FL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=GA">GA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=HI">HI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ID">ID</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IL">IL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IN">IN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IA">IA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=KS">KS</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=KY">KY</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=LA">LA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ME">ME</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MD">MD</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MA">MA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MI">MI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MN">MN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MS">MS</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MO">MO</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MT">MT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NE">NE</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NV">NV</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NH">NH</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NJ">NJ</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NM">NM</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NY">NY</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NC">NC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ND">ND</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OH">OH</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OK">OK</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OR">OR</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=PA">PA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=RI">RI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=SC">SC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=SD">SD</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=TN">TN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=TX">TX</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=UT">UT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=VT">VT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=VA">VA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WA">WA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WV">WV</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WI">WI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WY">WY</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <h2>Current Data by State</h2>
-    <table>
-    <thead>
-        <tr>
-            <th id="state" class="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
-            <th id="population" class="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="positive" class="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="newpositive" class="newpositive">New Positive<sup><i>1</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="dailydoublingrate" class="dailydoublingrate">Daily Doubling Rate<sup><i>2</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="negative" class="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="positivepercent" class="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="pending" class="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="totaltests" class="totaltests">Total Tests Taken <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="hospitalized" class="hospitalized">Hospitalized <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <th id="deaths" class="deaths">Deaths <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <!--<th id="total">Total test results<br />(Positive + Negative)</th>-->
-            <!--<th id="percentpositive">Percent of Tests Positive</th>-->
-            <th id="percent" class="percent">Percent of Population Tested <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
-            <!--<th id="governor">Governor <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>-->
-        </tr>
-    </thead>
-    <tbody id="root">
+        </nav>
+        <h2>Current Data by State</h2>
+        <div class="fb-share-button" data-href="https://hopeful-davinci-d08be0.netlify.app/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhopeful-davinci-d08be0.netlify.app%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        <table>
+            <thead>
+                <tr>
+                    <th id="state" class="state">State <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up"></span></th>
+                    <th id="population" class="population">Population <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="positive" class="positive">Positive <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="newpositive" class="newpositive">New Positive<sup><i>1</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="dailydoublingrate" class="dailydoublingrate">Daily Doubling Rate<sup><i>2</i></sup> <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="negative" class="negative">Negative <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="positivepercent" class="positivepercent">Positive Percent <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="pending" class="pending">Pending <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="totaltests" class="totaltests">Total Tests Taken <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="hospitalized" class="hospitalized">Hospitalized <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <th id="deaths" class="deaths">Deaths <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <!--<th id="total">Total test results<br />(Positive + Negative)</th>-->
+                    <!--<th id="percentpositive">Percent of Tests Positive</th>-->
+                    <th id="percent" class="percent">Percent of Population Tested <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>
+                    <!--<th id="governor">Governor <span class="fa fa-chevron-down" style="display:none;"></span><span class="fa fa-chevron-up" style="display:none;"></span></th>-->
+                </tr>
+            </thead>
+            <tbody id="root"></tbody>
+        </table><br />
+        <p class="population"><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
+        <p>
+            <i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
+            <i>(The State Testing Data is updated as new data comes in)</i>
+        </p>
+        <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
+        <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
+        <script type="text/javascript">
+            /**
+             * jQuery.fn.sortElements
+             * --------------
+             * @param Function comparator:
+             *   Exactly the same behaviour as [1,2,3].sort(comparator)
+             *
+             * @param Function getSortable
+             *   A function that should return the element that is
+             *   to be sorted. The comparator will run on the
+             *   current collection, but you may want the actual
+             *   resulting sort to occur on a parent or another
+             *   associated element.
+             *
+             *   E.g. $('td').sortElements(comparator, function(){
+             *      return this.parentNode;
+             *   })
+             *
+             *   The <td>'s parent (<tr>) will be sorted instead
+             *   of the <td> itself.
+             */
+            jQuery.fn.sortElements = (function () {
 
-    </tbody>        
-    </table><br />
-    <p class="population"><i>The state population data comes from the 2019 census population estimate on <a href="https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population" target="_blank">Wikipedia</a></i></p>
-    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
-    <i>(The State Testing Data is updated as new data comes in)</i></p>
-    <p><i>1. New Positive is calculated by taking the total positive cases from <span id="yesterdaydatedisplay"></span> and subtracting the total cases from <span id="twodaysagodatedisplay"></span>.</i></p>
-    <p><i>2. Daily Doubling Rate is calculated by taking the new positive cases as the rate of infection and calculating how many days it would take to double the total positive cases from <span id="yesterdaydatedisplay2"></span>.</i></p>
-    <script type="text/javascript">
-/**
- * jQuery.fn.sortElements
- * --------------
- * @param Function comparator:
- *   Exactly the same behaviour as [1,2,3].sort(comparator)
- *   
- * @param Function getSortable
- *   A function that should return the element that is
- *   to be sorted. The comparator will run on the
- *   current collection, but you may want the actual
- *   resulting sort to occur on a parent or another
- *   associated element.
- *   
- *   E.g. $('td').sortElements(comparator, function(){
- *      return this.parentNode; 
- *   })
- *   
- *   The <td>'s parent (<tr>) will be sorted instead
- *   of the <td> itself.
- */
-jQuery.fn.sortElements = (function(){
- 
-    var sort = [].sort;
- 
-    return function(comparator, getSortable) {
- 
-        getSortable = getSortable || function(){return this;};
- 
-        var placements = this.map(function(){
- 
-            var sortElement = getSortable.call(this),
-                parentNode = sortElement.parentNode,
- 
-                // Since the element itself will change position, we have
-                // to have some way of storing its original position in
-                // the DOM. The easiest way is to have a 'flag' node:
-                nextSibling = parentNode.insertBefore(
-                    document.createTextNode(''),
-                    sortElement.nextSibling
-                );
- 
-            return function() {
- 
-                if (parentNode === this) {
-                    throw new Error(
-                        "You can't sort elements if any one is a descendant of another."
-                    );
-                }
- 
-                // Insert before flag:
-                parentNode.insertBefore(this, nextSibling);
-                // Remove flag:
-                parentNode.removeChild(nextSibling);
- 
-            };
- 
-        });
- 
-        return sort.call(this, comparator).each(function(i){
-            placements[i].call(getSortable.call(this));
-        });
- 
-    };
- 
-})();
+                var sort = [].sort;
 
+                return function (comparator, getSortable) {
 
+                    getSortable = getSortable || function () { return this; };
 
+                    var placements = this.map(function () {
 
-        var dict = {};
-        var addPair = function (myKey, myValue) {
-            dict[myKey] = myValue;
-        };
-        var giveValue = function (myKey) {
-            return dict[myKey];
-        };
-        addPair('CA', '39512223');
-        addPair('TX', '28995881');
-        addPair('FL', '21477737');
-        addPair('NY', '19453561');
-        addPair('PA', '12801989');
-        addPair('IL', '12671821');
-        addPair('OH', '11689100');
-        addPair('GA', '10617423');
-        addPair('NC', '10488084');
-        addPair('MI', '9986857');
-        addPair('NJ', '8882190');
-        addPair('VA', '8535519');
-        addPair('WA', '7614893');
-        addPair('AZ', '7278717');
-        addPair('MA', '6949503');
-        addPair('TN', '6833174');
-        addPair('IN', '6732219');
-        addPair('MO', '6137428');
-        addPair('MD', '6045680');
-        addPair('WI', '5822434');
-        addPair('CO', '5758736');
-        addPair('MN', '5639632');
-        addPair('SC', '5148714');
-        addPair('AL', '4903185');
-        addPair('LA', '4648794');
-        addPair('KY', '4467673');
-        addPair('OR', '4217737');
-        addPair('OK', '3956971');
-        addPair('CT', '3565287');
-        addPair('UT', '3205958');
-        addPair('IA', '3155070');
-        addPair('NV', '3080156');
-        addPair('AR', '3017825');
-        addPair('MS', '2976149');
-        addPair('KS', '2913314');
-        addPair('NM', '2096829');
-        addPair('NE', '1934408');
-        addPair('WV', '1792065');
-        addPair('ID', '1787147');
-        addPair('HI', '1415872');
-        addPair('NH', '1359711');
-        addPair('ME', '1344212');
-        addPair('MT', '1068778');
-        addPair('RI', '1059361');
-        addPair('DE', '973764');
-        addPair('SD', '884659');
-        addPair('ND', '762062');
-        addPair('AK', '731545');
-        addPair('DC', '705749');
-        addPair('VT', '623989');
-        addPair('WY', '578759');
+                        var sortElement = getSortable.call(this),
+                            parentNode = sortElement.parentNode,
 
+                            // Since the element itself will change position, we have
+                            // to have some way of storing its original position in
+                            // the DOM. The easiest way is to have a 'flag' node:
+                            nextSibling = parentNode.insertBefore(
+                                document.createTextNode(''),
+                                sortElement.nextSibling
+                            );
 
-        var dictGovernor = {};
-        var addPairGovernor = function (myKey, myValue) {
-            dictGovernor[myKey] = myValue;
-        };
-        var giveValueGovernor = function (myKey) {
-            return dictGovernor[myKey];
-        };
-        addPairGovernor('AL', 'Kay Ivey (Republican)');
-        addPairGovernor('AK', 'Mike Dunleavy (Republican)');
-        addPairGovernor('AZ', 'Doug Ducey (Republican)');
-        addPairGovernor('AR', 'Asa Hutchinson (Republican)');
-        addPairGovernor('CA', 'Gavin Newsom (Democratic)');
-        addPairGovernor('CO', 'Jared Polis (Democratic)');
-        addPairGovernor('CT', 'Ned Lamont (Democratic)');
-        addPairGovernor('DC', 'Muriel Bowser (Democratic)');
-        addPairGovernor('DE', 'John Carney (Democratic)');
-        addPairGovernor('FL', 'Ron DeSantis (Republican)');
-        addPairGovernor('GA', 'Brian Kemp (Republican)');
-        addPairGovernor('HI', 'David Ige (Democratic)');
-        addPairGovernor('ID', 'Brad Little (Republican)');
-        addPairGovernor('IL', 'J. B. Pritzker (Democratic)');
-        addPairGovernor('IN', 'Eric Holcomb (Republican)');
-        addPairGovernor('IA', 'Kim Reynolds (Republican)');
-        addPairGovernor('KS', 'Laura Kelly (Democratic)');
-        addPairGovernor('KY', 'Andy Beshear (Democratic)');
-        addPairGovernor('LA', 'John Bel Edwards (Democratic)');
-        addPairGovernor('ME', 'Janet Mills (Democratic)');
-        addPairGovernor('MD', 'Larry Hogan (Republican)');
-        addPairGovernor('MA', 'Charlie Baker (Republican)');
-        addPairGovernor('MI', 'Gretchen Whitmer (Democratic)');
-        addPairGovernor('MN', 'Tim Walz (Democratic)');
-        addPairGovernor('MS', 'Tate Reeves (Republican)');
-        addPairGovernor('MO', 'Mike Parson (Republican)');
-        addPairGovernor('MT', 'Steve Bullock (Democratic)');
-        addPairGovernor('NE', 'Pete Ricketts (Republican)');
-        addPairGovernor('NV', 'Steve Sisolak (Democratic)');
-        addPairGovernor('NH', 'Chris Sununu (Republican)');
-        addPairGovernor('NJ', 'Phil Murphy (Democratic)');
-        addPairGovernor('NM', 'Michelle Lujan Grisham (Democratic)');
-        addPairGovernor('NY', 'Andrew Cuomo (Democratic)');
-        addPairGovernor('NC', 'Roy Cooper (Democratic)');
-        addPairGovernor('ND', 'Doug Burgum (Republican)');
-        addPairGovernor('OH', 'Mike DeWine (Republican)');
-        addPairGovernor('OK', 'Kevin Stitt (Republican)');
-        addPairGovernor('OR', 'Kate Brown (Democratic)');
-        addPairGovernor('PA', 'Tom Wolf (Democratic)');
-        addPairGovernor('RI', 'Gina Raimondo (Democratic)');
-        addPairGovernor('SC', 'Henry McMaster (Republican)');
-        addPairGovernor('SD', 'Kristi Noem (Republican)');
-        addPairGovernor('TN', 'Bill Lee (Republican)');
-        addPairGovernor('TX', 'Greg Abbott (Republican)');
-        addPairGovernor('UT', 'Gary Herbert (Republican)');
-        addPairGovernor('VT', 'Phil Scott (Republican)');
-        addPairGovernor('VA', 'Ralph Northam (Democratic)');
-        addPairGovernor('WA', 'Jay Inslee (Democratic)');
-        addPairGovernor('WV', 'Jim Justice (Republican)');
-        addPairGovernor('WI', 'Tony Evers (Democratic)');
-        addPairGovernor('WY', 'Mark Gordon (Republican)');
+                        return function () {
 
-        const app = document.getElementById('root');
+                            if (parentNode === this) {
+                                throw new Error(
+                                    "You can't sort elements if any one is a descendant of another."
+                                );
+                            }
 
+                            // Insert before flag:
+                            parentNode.insertBefore(this, nextSibling);
+                            // Remove flag:
+                            parentNode.removeChild(nextSibling);
 
-        //lets find the number of new cases
-        var requestnew2 = new XMLHttpRequest();
-        requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
-        var today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        const twodayago = new Date(today);
-        twodayago.setDate(twodayago.getDate() - 2);
-        var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
-        $('#yesterdaydatedisplay').text(('0' + (yesterday.getMonth() + 1)).slice(-2) + '/' + ('0' + (yesterday.getDate())).slice(-2) + '/' + yesterday.getFullYear());
-        $('#yesterdaydatedisplay2').text($('#yesterdaydatedisplay').text());
-        var twodaysagodate = twodayago.getFullYear() + '' + ('0' + (twodayago.getMonth() + 1)).slice(-2) + '' + ('0' + (twodayago.getDate())).slice(-2);
-        $('#twodaysagodatedisplay').text(('0' + (twodayago.getMonth() + 1)).slice(-2) + '/' + ('0' + (twodayago.getDate())).slice(-2) + '/' + twodayago.getFullYear());
-        //console.log('yesterdaydate:' + yesterdaydate + ':twodaysagodate:' + twodaysagodate);
-        var yesterdaytotal = 0;
-        var twodaysagototal = 0;
-        var usnew = 0;
-        requestnew2.onload = function () {
-            // Begin accessing JSON data here
-            if (requestnew2.status >= 200 && requestnew2.status < 400) {
-                var data = JSON.parse(this.response);
-                for (var i = 0; i < data.length; i++) {
-                    var daydata = data[i];   
-                    //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
-                    if (daydata.date.toString() == yesterdaydate.toString()) {
-                        yesterdaytotal = daydata.positive;
-                    }
-                    if (daydata.date.toString() == twodaysagodate.toString()) {
-                        twodaysagototal = daydata.positive;
-                    }
-                }
-                usnew = yesterdaytotal - twodaysagototal;
-                //console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
-            }
-        }
-        requestnew2.send();
+                        };
 
-        var requestnew = new XMLHttpRequest();
-        requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
-        var dictNew = {};
-        var addPairNew = function (myKey, myValue) {
-            dictNew[myKey] = myValue;
-        };
-        var giveValueNew = function (myKey) {
-            return dictNew[myKey];
-        };
-        requestnew.onload = function () {
-            // Begin accessing JSON data here
-            if (requestnew.status >= 200 && requestnew.status < 400) {
-                var data = JSON.parse(this.response);
-                for (var i = 0; i < data.length; i++) {
-                    var daydata = data[i];   
-                    //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
-                    if (daydata.date.toString() == yesterdaydate.toString()) {
-                        addPairNew(daydata.state, daydata.positive);
-                    }
-                    if (daydata.date.toString() == twodaysagodate.toString()) {
-                        addPairNew(daydata.state, (giveValueNew(daydata.state)) - daydata.positive);
-                    }
-                }
-            }
-        }
-        requestnew.send();
-
-
-
-        var request2 = new XMLHttpRequest();
-        request2.open('GET', 'https://covidtracking.com/api/us', false);
-        request2.onload = function () { 
-            // Begin accessing JSON data here
-            if (request2.status >= 200 && request2.status < 400) {
-                var data = JSON.parse(this.response);
-                printData(data,true);
-            }
-        }
-        request2.send();
-        var request = new XMLHttpRequest();
-        request.open('GET', 'https://covidtracking.com/api/states', false);
-        request.onload = function () {
-            // Begin accessing JSON data here
-            if (request.status >= 200 && request.status < 400) {
-                var data = JSON.parse(this.response);
-                printData(data,false);
-            } else {
-                const errorMessage = document.createElement('marquee');
-                errorMessage.textContent = 'Not working!';
-                app.appendChild(errorMessage);
-            }
-        }
-        request.send();
-
-
-        function printData(data, alwaysdisplay) {
-            for (var i = 0; i < data.length; i++) {
-            //data.forEach(state => {
-                var state = data[i];    
-                if (alwaysdisplay || parseInt(giveValue(state.state)) > 0) {
-                    const staterow = document.createElement('tr');
-                    staterow.setAttribute('class', (alwaysdisplay ? ' USA' : state.state));
-
-                    //{"state":"AZ","positive":470,"positiveScore":1,"negativeScore":1,"negativeRegularScore":1,"commercialScore":0,"grade":"B","score":3,
-                    //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
-                    //state
-                    var statecolumn = document.createElement('td');
-                    statecolumn.setAttribute('class', 'state');
-                    statecolumn.textContent = (alwaysdisplay?' USA':state.state);
-                    staterow.appendChild(statecolumn);
-
-                    //population  
-                    var statecolumn2 = document.createElement('td');
-                    statecolumn2.setAttribute('class', 'population');
-                    statecolumn2.textContent = (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state)));
-                    staterow.appendChild(statecolumn2);
-
-                    //positive
-                    var positive = (state.positive ? state.positive : 0);
-                    var statecolumn3 = document.createElement('td');
-                    statecolumn3.setAttribute('class', 'positive');
-                    statecolumn3.textContent = formatNumber(positive);
-                    staterow.appendChild(statecolumn3);
-
-                    //new positive
-                    var rownewpositive = (alwaysdisplay ? usnew : giveValueNew(state.state));
-                    var statecolumnnewpositive = document.createElement('td');
-                    statecolumnnewpositive.setAttribute('class', 'newpositive');
-                    statecolumnnewpositive.textContent = formatNumber(rownewpositive);
-                    staterow.appendChild(statecolumnnewpositive);
-
-                    //daily doubling rate
-                    var statecolumndailydoubling = document.createElement('td');
-                    statecolumndailydoubling.textContent = formatNumber((positive / rownewpositive));
-                    statecolumndailydoubling.setAttribute('class', 'dailydoublingrate');
-                    staterow.appendChild(statecolumndailydoubling);
-
-                    //negative
-                    var negative = (state.negative ? state.negative : 0);
-                    var statecolumn4 = document.createElement('td');
-                    statecolumn4.textContent = formatNumber(negative);
-                    statecolumn4.setAttribute('class', 'negative');
-                    staterow.appendChild(statecolumn4);
-
-                    //positivepercent
-                    var totaltests2 = parseInt(positive) + parseInt(negative);
-                    var statecolumn11 = document.createElement('td');
-                    statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString() + '%';
-                    statecolumn11.setAttribute('class', 'positivepercent');
-                    staterow.appendChild(statecolumn11);
-
-                    //pending
-                    var pending = (state.pending ? state.pending : 0);
-                    var statecolumn5 = document.createElement('td');
-                    statecolumn5.textContent = formatNumber(pending);
-                    statecolumn5.setAttribute('class', 'pending');
-                    staterow.appendChild(statecolumn5);
-
-                    //totaltests
-                    var totaltests = parseInt(positive) + parseInt(negative) + parseInt(pending);
-                    var statecolumntotaltests = document.createElement('td');
-                    statecolumntotaltests.textContent = formatNumber(totaltests);
-                    statecolumntotaltests.setAttribute('class', 'totaltests');
-                    staterow.appendChild(statecolumntotaltests);
-
-                    //hospitalized
-                    var statecolumn6 = document.createElement('td');
-                    statecolumn6.textContent = formatNumber(state.hospitalized);
-                    statecolumn6.setAttribute('class', 'hospitalized');
-                    staterow.appendChild(statecolumn6);
-
-                    //deaths
-                    var statecolumn7 = document.createElement('td');
-                    statecolumn7.textContent = formatNumber(state.death);
-                    statecolumn7.setAttribute('class', 'deaths');
-                    staterow.appendChild(statecolumn7);
-
-                    //total
-                    //var statecolumn8 = document.createElement('td');
-                    //statecolumn8.textContent = formatNumber(state.totalTestResults);
-                    //staterow.appendChild(statecolumn8);
-
-                    //percentpositive
-                    //var statecolumn10 = document.createElement('td');
-                    //statecolumn10.textContent = formatNumber(parseInt(state.positive) / parseInt(giveValue(state.totalTestResults)) * 100).toString()+'%';
-                    //staterow.appendChild(statecolumn10);
-
-                    //percent
-                    //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
-                    var statecolumn9 = document.createElement('td');
-                    statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? 325386357 : giveValue(state.state)) * 100).toString() + '%';
-                    statecolumn9.setAttribute('class', 'percent');
-                    staterow.appendChild(statecolumn9);
-
-                    //governor
-                    //var statecolumnGovernor = document.createElement('td');
-                    //statecolumnGovernor.textContent = giveValueGovernor(state.state);
-                    //staterow.appendChild(statecolumnGovernor);
-
-                    app.appendChild(staterow);
-                }
-            }
-        }
-
-        var table = $('table');
-        //var test = '6,844';
-        //console.log('test:' + test.replace(/,/g, ''));
-    
-        $('th')
-            .wrapInner('<span title="sort this column"/>')
-            .each(function(){
-
-                var th = $(this),
-                    thIndex = th.index(),
-                    inverse = true;
-            
-                th.click(function () {
-                    $('.fa').hide();
-                    $('#' + $(this).attr('id') + ' .fa.fa-chevron-' + (!inverse ? 'up' :'down')).show();
-                    //console.log('id:' + $(this).attr('id') + ':inverse:' + inverse);
-                
-                    table.find('td').filter(function(){                    
-                        return $(this).index() === thIndex;                    
-                    }).sortElements(function (a, b) {
-                        if ($.isNumeric($.text([a]).replace(/,/g, ''))) {
-                            //console.log('a:' + $.text([a]).replace(/,/g, '-'));
-                            return parseInt($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseInt($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
-                                inverse ? -1 : 1
-                                : inverse ? 1 : -1;
-                        } else if ($.isNumeric($.text([a]).replace(/,/g, '').replace(/%/g, ''))) {
-                            //console.log('a:' + $.text([a]).replace(/,/g, '-'));
-                            return parseFloat($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseFloat($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
-                                inverse ? -1 : 1
-                                : inverse ? 1 : -1;
-                        } else {
-                            return $.text([a]) > $.text([b]) ?
-                                inverse ? -1 : 1
-                                : inverse ? 1 : -1;
-                        }                    
-                    }, function(){                    
-                        // parentNode is the element we want to move
-                        return this.parentNode;                     
                     });
-                
-                    inverse = !inverse;
-                    
-                });
-                
-            });
 
-    </script>
+                    return sort.call(this, comparator).each(function (i) {
+                        placements[i].call(getSortable.call(this));
+                    });
+
+                };
+
+            })();
+
+
+
+
+            var dict = {};
+            var addPair = function (myKey, myValue) {
+                dict[myKey] = myValue;
+            };
+            var giveValue = function (myKey) {
+                return dict[myKey];
+            };
+            addPair('CA', '39512223');
+            addPair('TX', '28995881');
+            addPair('FL', '21477737');
+            addPair('NY', '19453561');
+            addPair('PA', '12801989');
+            addPair('IL', '12671821');
+            addPair('OH', '11689100');
+            addPair('GA', '10617423');
+            addPair('NC', '10488084');
+            addPair('MI', '9986857');
+            addPair('NJ', '8882190');
+            addPair('VA', '8535519');
+            addPair('WA', '7614893');
+            addPair('AZ', '7278717');
+            addPair('MA', '6949503');
+            addPair('TN', '6833174');
+            addPair('IN', '6732219');
+            addPair('MO', '6137428');
+            addPair('MD', '6045680');
+            addPair('WI', '5822434');
+            addPair('CO', '5758736');
+            addPair('MN', '5639632');
+            addPair('SC', '5148714');
+            addPair('AL', '4903185');
+            addPair('LA', '4648794');
+            addPair('KY', '4467673');
+            addPair('OR', '4217737');
+            addPair('OK', '3956971');
+            addPair('CT', '3565287');
+            addPair('UT', '3205958');
+            addPair('IA', '3155070');
+            addPair('NV', '3080156');
+            addPair('AR', '3017825');
+            addPair('MS', '2976149');
+            addPair('KS', '2913314');
+            addPair('NM', '2096829');
+            addPair('NE', '1934408');
+            addPair('WV', '1792065');
+            addPair('ID', '1787147');
+            addPair('HI', '1415872');
+            addPair('NH', '1359711');
+            addPair('ME', '1344212');
+            addPair('MT', '1068778');
+            addPair('RI', '1059361');
+            addPair('DE', '973764');
+            addPair('SD', '884659');
+            addPair('ND', '762062');
+            addPair('AK', '731545');
+            addPair('DC', '705749');
+            addPair('VT', '623989');
+            addPair('WY', '578759');
+
+
+            var dictGovernor = {};
+            var addPairGovernor = function (myKey, myValue) {
+                dictGovernor[myKey] = myValue;
+            };
+            var giveValueGovernor = function (myKey) {
+                return dictGovernor[myKey];
+            };
+            addPairGovernor('AL', 'Kay Ivey (Republican)');
+            addPairGovernor('AK', 'Mike Dunleavy (Republican)');
+            addPairGovernor('AZ', 'Doug Ducey (Republican)');
+            addPairGovernor('AR', 'Asa Hutchinson (Republican)');
+            addPairGovernor('CA', 'Gavin Newsom (Democratic)');
+            addPairGovernor('CO', 'Jared Polis (Democratic)');
+            addPairGovernor('CT', 'Ned Lamont (Democratic)');
+            addPairGovernor('DC', 'Muriel Bowser (Democratic)');
+            addPairGovernor('DE', 'John Carney (Democratic)');
+            addPairGovernor('FL', 'Ron DeSantis (Republican)');
+            addPairGovernor('GA', 'Brian Kemp (Republican)');
+            addPairGovernor('HI', 'David Ige (Democratic)');
+            addPairGovernor('ID', 'Brad Little (Republican)');
+            addPairGovernor('IL', 'J. B. Pritzker (Democratic)');
+            addPairGovernor('IN', 'Eric Holcomb (Republican)');
+            addPairGovernor('IA', 'Kim Reynolds (Republican)');
+            addPairGovernor('KS', 'Laura Kelly (Democratic)');
+            addPairGovernor('KY', 'Andy Beshear (Democratic)');
+            addPairGovernor('LA', 'John Bel Edwards (Democratic)');
+            addPairGovernor('ME', 'Janet Mills (Democratic)');
+            addPairGovernor('MD', 'Larry Hogan (Republican)');
+            addPairGovernor('MA', 'Charlie Baker (Republican)');
+            addPairGovernor('MI', 'Gretchen Whitmer (Democratic)');
+            addPairGovernor('MN', 'Tim Walz (Democratic)');
+            addPairGovernor('MS', 'Tate Reeves (Republican)');
+            addPairGovernor('MO', 'Mike Parson (Republican)');
+            addPairGovernor('MT', 'Steve Bullock (Democratic)');
+            addPairGovernor('NE', 'Pete Ricketts (Republican)');
+            addPairGovernor('NV', 'Steve Sisolak (Democratic)');
+            addPairGovernor('NH', 'Chris Sununu (Republican)');
+            addPairGovernor('NJ', 'Phil Murphy (Democratic)');
+            addPairGovernor('NM', 'Michelle Lujan Grisham (Democratic)');
+            addPairGovernor('NY', 'Andrew Cuomo (Democratic)');
+            addPairGovernor('NC', 'Roy Cooper (Democratic)');
+            addPairGovernor('ND', 'Doug Burgum (Republican)');
+            addPairGovernor('OH', 'Mike DeWine (Republican)');
+            addPairGovernor('OK', 'Kevin Stitt (Republican)');
+            addPairGovernor('OR', 'Kate Brown (Democratic)');
+            addPairGovernor('PA', 'Tom Wolf (Democratic)');
+            addPairGovernor('RI', 'Gina Raimondo (Democratic)');
+            addPairGovernor('SC', 'Henry McMaster (Republican)');
+            addPairGovernor('SD', 'Kristi Noem (Republican)');
+            addPairGovernor('TN', 'Bill Lee (Republican)');
+            addPairGovernor('TX', 'Greg Abbott (Republican)');
+            addPairGovernor('UT', 'Gary Herbert (Republican)');
+            addPairGovernor('VT', 'Phil Scott (Republican)');
+            addPairGovernor('VA', 'Ralph Northam (Democratic)');
+            addPairGovernor('WA', 'Jay Inslee (Democratic)');
+            addPairGovernor('WV', 'Jim Justice (Republican)');
+            addPairGovernor('WI', 'Tony Evers (Democratic)');
+            addPairGovernor('WY', 'Mark Gordon (Republican)');
+
+            const app = document.getElementById('root');
+
+
+            //lets find the number of new cases
+            var requestnew2 = new XMLHttpRequest();
+            requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+            var today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const twodayago = new Date(today);
+            twodayago.setDate(twodayago.getDate() - 2);
+            var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
+            $('#yesterdaydatedisplay').text(('0' + (yesterday.getMonth() + 1)).slice(-2) + '/' + ('0' + (yesterday.getDate())).slice(-2) + '/' + yesterday.getFullYear());
+            $('#yesterdaydatedisplay2').text($('#yesterdaydatedisplay').text());
+            var twodaysagodate = twodayago.getFullYear() + '' + ('0' + (twodayago.getMonth() + 1)).slice(-2) + '' + ('0' + (twodayago.getDate())).slice(-2);
+            $('#twodaysagodatedisplay').text(('0' + (twodayago.getMonth() + 1)).slice(-2) + '/' + ('0' + (twodayago.getDate())).slice(-2) + '/' + twodayago.getFullYear());
+            //console.log('yesterdaydate:' + yesterdaydate + ':twodaysagodate:' + twodaysagodate);
+            var yesterdaytotal = 0;
+            var twodaysagototal = 0;
+            var usnew = 0;
+            requestnew2.onload = function () {
+                // Begin accessing JSON data here
+                if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                    var data = JSON.parse(this.response);
+                    for (var i = 0; i < data.length; i++) {
+                        var daydata = data[i];
+                        //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
+                        if (daydata.date.toString() == yesterdaydate.toString()) {
+                            yesterdaytotal = daydata.positive;
+                        }
+                        if (daydata.date.toString() == twodaysagodate.toString()) {
+                            twodaysagototal = daydata.positive;
+                        }
+                    }
+                    usnew = yesterdaytotal - twodaysagototal;
+                    //console.log('yesterdaytotal:' + yesterdaytotal + ':twodaysagototal:' + twodaysagototal + ':usnew:' + usnew);
+                }
+            }
+            requestnew2.send();
+
+            var requestnew = new XMLHttpRequest();
+            requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
+            var dictNew = {};
+            var addPairNew = function (myKey, myValue) {
+                dictNew[myKey] = myValue;
+            };
+            var giveValueNew = function (myKey) {
+                return dictNew[myKey];
+            };
+            requestnew.onload = function () {
+                // Begin accessing JSON data here
+                if (requestnew.status >= 200 && requestnew.status < 400) {
+                    var data = JSON.parse(this.response);
+                    for (var i = 0; i < data.length; i++) {
+                        var daydata = data[i];
+                        //console.log('daydata.date:' + daydata.date + ':match:' + (daydata.date == yesterdaydate ? 'true' : 'false') + ':match1:' + (daydata.date == twodaysagototal ? 'true' : 'false'));
+                        if (daydata.date.toString() == yesterdaydate.toString()) {
+                            addPairNew(daydata.state, daydata.positive);
+                        }
+                        if (daydata.date.toString() == twodaysagodate.toString()) {
+                            addPairNew(daydata.state, (giveValueNew(daydata.state)) - daydata.positive);
+                        }
+                    }
+                }
+            }
+            requestnew.send();
+
+
+
+            var request2 = new XMLHttpRequest();
+            request2.open('GET', 'https://covidtracking.com/api/us', false);
+            request2.onload = function () {
+                // Begin accessing JSON data here
+                if (request2.status >= 200 && request2.status < 400) {
+                    var data = JSON.parse(this.response);
+                    printData(data, true);
+                }
+            }
+            request2.send();
+            var request = new XMLHttpRequest();
+            request.open('GET', 'https://covidtracking.com/api/states', false);
+            request.onload = function () {
+                // Begin accessing JSON data here
+                if (request.status >= 200 && request.status < 400) {
+                    var data = JSON.parse(this.response);
+                    printData(data, false);
+                } else {
+                    const errorMessage = document.createElement('marquee');
+                    errorMessage.textContent = 'Not working!';
+                    app.appendChild(errorMessage);
+                }
+            }
+            request.send();
+
+
+            function printData(data, alwaysdisplay) {
+                for (var i = 0; i < data.length; i++) {
+                    //data.forEach(state => {
+                    var state = data[i];
+                    if (alwaysdisplay || parseInt(giveValue(state.state)) > 0) {
+                        const staterow = document.createElement('tr');
+                        staterow.setAttribute('class', (alwaysdisplay ? ' USA' : state.state));
+
+                        //{"state":"AZ","positive":470,"positiveScore":1,"negativeScore":1,"negativeRegularScore":1,"commercialScore":0,"grade":"B","score":3,
+                        //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
+                        //state
+                        var statecolumn = document.createElement('td');
+                        statecolumn.setAttribute('class', 'state');
+                        statecolumn.textContent = (alwaysdisplay ? ' USA' : state.state);
+                        staterow.appendChild(statecolumn);
+
+                        //population
+                        var statecolumn2 = document.createElement('td');
+                        statecolumn2.setAttribute('class', 'population');
+                        statecolumn2.textContent = (alwaysdisplay ? formatNumber(325386357) : formatNumber(giveValue(state.state)));
+                        staterow.appendChild(statecolumn2);
+
+                        //positive
+                        var positive = (state.positive ? state.positive : 0);
+                        var statecolumn3 = document.createElement('td');
+                        statecolumn3.setAttribute('class', 'positive');
+                        statecolumn3.textContent = formatNumber(positive);
+                        staterow.appendChild(statecolumn3);
+
+                        //new positive
+                        var rownewpositive = (alwaysdisplay ? usnew : giveValueNew(state.state));
+                        var statecolumnnewpositive = document.createElement('td');
+                        statecolumnnewpositive.setAttribute('class', 'newpositive');
+                        statecolumnnewpositive.textContent = formatNumber(rownewpositive);
+                        staterow.appendChild(statecolumnnewpositive);
+
+                        //daily doubling rate
+                        var statecolumndailydoubling = document.createElement('td');
+                        statecolumndailydoubling.textContent = formatNumber((positive / rownewpositive));
+                        statecolumndailydoubling.setAttribute('class', 'dailydoublingrate');
+                        staterow.appendChild(statecolumndailydoubling);
+
+                        //negative
+                        var negative = (state.negative ? state.negative : 0);
+                        var statecolumn4 = document.createElement('td');
+                        statecolumn4.textContent = formatNumber(negative);
+                        statecolumn4.setAttribute('class', 'negative');
+                        staterow.appendChild(statecolumn4);
+
+                        //positivepercent
+                        var totaltests2 = parseInt(positive) + parseInt(negative);
+                        var statecolumn11 = document.createElement('td');
+                        statecolumn11.textContent = formatNumber(parseInt(positive) / parseInt(totaltests2) * 100).toString() + '%';
+                        statecolumn11.setAttribute('class', 'positivepercent');
+                        staterow.appendChild(statecolumn11);
+
+                        //pending
+                        var pending = (state.pending ? state.pending : 0);
+                        var statecolumn5 = document.createElement('td');
+                        statecolumn5.textContent = formatNumber(pending);
+                        statecolumn5.setAttribute('class', 'pending');
+                        staterow.appendChild(statecolumn5);
+
+                        //totaltests
+                        var totaltests = parseInt(positive) + parseInt(negative) + parseInt(pending);
+                        var statecolumntotaltests = document.createElement('td');
+                        statecolumntotaltests.textContent = formatNumber(totaltests);
+                        statecolumntotaltests.setAttribute('class', 'totaltests');
+                        staterow.appendChild(statecolumntotaltests);
+
+                        //hospitalized
+                        var statecolumn6 = document.createElement('td');
+                        statecolumn6.textContent = formatNumber(state.hospitalized);
+                        statecolumn6.setAttribute('class', 'hospitalized');
+                        staterow.appendChild(statecolumn6);
+
+                        //deaths
+                        var statecolumn7 = document.createElement('td');
+                        statecolumn7.textContent = formatNumber(state.death);
+                        statecolumn7.setAttribute('class', 'deaths');
+                        staterow.appendChild(statecolumn7);
+
+                        //total
+                        //var statecolumn8 = document.createElement('td');
+                        //statecolumn8.textContent = formatNumber(state.totalTestResults);
+                        //staterow.appendChild(statecolumn8);
+
+                        //percentpositive
+                        //var statecolumn10 = document.createElement('td');
+                        //statecolumn10.textContent = formatNumber(parseInt(state.positive) / parseInt(giveValue(state.totalTestResults)) * 100).toString()+'%';
+                        //staterow.appendChild(statecolumn10);
+
+                        //percent
+                        //console.log(state.state + ': ' + parseInt(state.totalTestResults) + ': ' + parseInt(giveValue(state.state)));
+                        var statecolumn9 = document.createElement('td');
+                        statecolumn9.textContent = formatNumber(parseInt(totaltests) / (alwaysdisplay ? 325386357 : giveValue(state.state)) * 100).toString() + '%';
+                        statecolumn9.setAttribute('class', 'percent');
+                        staterow.appendChild(statecolumn9);
+
+                        //governor
+                        //var statecolumnGovernor = document.createElement('td');
+                        //statecolumnGovernor.textContent = giveValueGovernor(state.state);
+                        //staterow.appendChild(statecolumnGovernor);
+
+                        app.appendChild(staterow);
+                    }
+                }
+            }
+
+            var table = $('table');
+            //var test = '6,844';
+            //console.log('test:' + test.replace(/,/g, ''));
+
+            $('th')
+                .wrapInner('<span title="sort this column"/>')
+                .each(function () {
+
+                    var th = $(this),
+                        thIndex = th.index(),
+                        inverse = true;
+
+                    th.click(function () {
+                        $('.fa').hide();
+                        $('#' + $(this).attr('id') + ' .fa.fa-chevron-' + (!inverse ? 'up' : 'down')).show();
+                        //console.log('id:' + $(this).attr('id') + ':inverse:' + inverse);
+
+                        table.find('td').filter(function () {
+                            return $(this).index() === thIndex;
+                        }).sortElements(function (a, b) {
+                            if ($.isNumeric($.text([a]).replace(/,/g, ''))) {
+                                //console.log('a:' + $.text([a]).replace(/,/g, '-'));
+                                return parseInt($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseInt($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
+                                    inverse ? -1 : 1
+                                    : inverse ? 1 : -1;
+                            } else if ($.isNumeric($.text([a]).replace(/,/g, '').replace(/%/g, ''))) {
+                                //console.log('a:' + $.text([a]).replace(/,/g, '-'));
+                                return parseFloat($.text([a]).replace(/,/g, '').replace(/%/g, '')) > parseFloat($.text([b]).replace(/,/g, '').replace(/%/g, '')) ?
+                                    inverse ? -1 : 1
+                                    : inverse ? 1 : -1;
+                            } else {
+                                return $.text([a]) > $.text([b]) ?
+                                    inverse ? -1 : 1
+                                    : inverse ? 1 : -1;
+                            }
+                        }, function () {
+                            // parentNode is the element we want to move
+                            return this.parentNode;
+                        });
+
+                        inverse = !inverse;
+
+                    });
+
+                });
+
+        </script>
     </div>
 </body>
 </html>

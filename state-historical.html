@@ -22,6 +22,12 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <meta property="og:url" content="https://hopeful-davinci-d08be0.netlify.app/state-historical.html?state=USA" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="New Infected/New Deaths Historical Data For USA" />
+    <meta property="og:description" content="Historical new infection and new death data.  Can be changed to show reports for all 50 states." />
+    <meta property="og:image" content="https://hopeful-davinci-d08be0.netlify.app/images/state-historical.gif" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.css" integrity="sha256-pok3KZeHPJvZi4o04UfObTBGUAIkwF/zZWbh+UuKaoE=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
@@ -35,220 +41,409 @@
 
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=1823177061342795&autoLogAppEvents=1" nonce="AzpdaUOk"></script>
     <div class="container">
-    <h1>COVID-19 Tracking Data</h1>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <h1>COVID-19 Tracking Data</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Current Data by State</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="historical.html">Historical Daily Doubling Rate</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              New Infected/New Deaths Historical Data
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="state-historical.html?state=USA">USA</a>
-                <a class="dropdown-item" href="state-historical.html?state=AL">AL</a>
-                <a class="dropdown-item" href="state-historical.html?state=AK">AK</a>
-                <a class="dropdown-item" href="state-historical.html?state=AZ">AZ</a>
-                <a class="dropdown-item" href="state-historical.html?state=AR">AR</a>
-                <a class="dropdown-item" href="state-historical.html?state=CA">CA</a>
-                <a class="dropdown-item" href="state-historical.html?state=CO">CO</a>
-                <a class="dropdown-item" href="state-historical.html?state=CT">CT</a>
-                <a class="dropdown-item" href="state-historical.html?state=DC">DC</a>
-                <a class="dropdown-item" href="state-historical.html?state=DE">DE</a>
-                <a class="dropdown-item" href="state-historical.html?state=FL">FL</a>
-                <a class="dropdown-item" href="state-historical.html?state=GA">GA</a>
-                <a class="dropdown-item" href="state-historical.html?state=HI">HI</a>
-                <a class="dropdown-item" href="state-historical.html?state=ID">ID</a>
-                <a class="dropdown-item" href="state-historical.html?state=IL">IL</a>
-                <a class="dropdown-item" href="state-historical.html?state=IN">IN</a>
-                <a class="dropdown-item" href="state-historical.html?state=IA">IA</a>
-                <a class="dropdown-item" href="state-historical.html?state=KS">KS</a>
-                <a class="dropdown-item" href="state-historical.html?state=KY">KY</a>
-                <a class="dropdown-item" href="state-historical.html?state=LA">LA</a>
-                <a class="dropdown-item" href="state-historical.html?state=ME">ME</a>
-                <a class="dropdown-item" href="state-historical.html?state=MD">MD</a>
-                <a class="dropdown-item" href="state-historical.html?state=MA">MA</a>
-                <a class="dropdown-item" href="state-historical.html?state=MI">MI</a>
-                <a class="dropdown-item" href="state-historical.html?state=MN">MN</a>
-                <a class="dropdown-item" href="state-historical.html?state=MS">MS</a>
-                <a class="dropdown-item" href="state-historical.html?state=MO">MO</a>
-                <a class="dropdown-item" href="state-historical.html?state=MT">MT</a>
-                <a class="dropdown-item" href="state-historical.html?state=NE">NE</a>
-                <a class="dropdown-item" href="state-historical.html?state=NV">NV</a>
-                <a class="dropdown-item" href="state-historical.html?state=NH">NH</a>
-                <a class="dropdown-item" href="state-historical.html?state=NJ">NJ</a>
-                <a class="dropdown-item" href="state-historical.html?state=NM">NM</a>
-                <a class="dropdown-item" href="state-historical.html?state=NY">NY</a>
-                <a class="dropdown-item" href="state-historical.html?state=NC">NC</a>
-                <a class="dropdown-item" href="state-historical.html?state=ND">ND</a>
-                <a class="dropdown-item" href="state-historical.html?state=OH">OH</a>
-                <a class="dropdown-item" href="state-historical.html?state=OK">OK</a>
-                <a class="dropdown-item" href="state-historical.html?state=OR">OR</a>
-                <a class="dropdown-item" href="state-historical.html?state=PA">PA</a>
-                <a class="dropdown-item" href="state-historical.html?state=RI">RI</a>
-                <a class="dropdown-item" href="state-historical.html?state=SC">SC</a>
-                <a class="dropdown-item" href="state-historical.html?state=SD">SD</a>
-                <a class="dropdown-item" href="state-historical.html?state=TN">TN</a>
-                <a class="dropdown-item" href="state-historical.html?state=TX">TX</a>
-                <a class="dropdown-item" href="state-historical.html?state=UT">UT</a>
-                <a class="dropdown-item" href="state-historical.html?state=VT">VT</a>
-                <a class="dropdown-item" href="state-historical.html?state=VA">VA</a>
-                <a class="dropdown-item" href="state-historical.html?state=WA">WA</a>
-                <a class="dropdown-item" href="state-historical.html?state=WV">WV</a>
-                <a class="dropdown-item" href="state-historical.html?state=WI">WI</a>
-                <a class="dropdown-item" href="state-historical.html?state=WY">WY</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Current Data by State</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="historical.html">Daily Doubling Rate</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle start" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            New Infected/New Deaths
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="state-historical.html?state=USA">USA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AL">AL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AK">AK</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AZ">AZ</a>
+                            <a class="dropdown-item" href="state-historical.html?state=AR">AR</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CA">CA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CO">CO</a>
+                            <a class="dropdown-item" href="state-historical.html?state=CT">CT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=DC">DC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=DE">DE</a>
+                            <a class="dropdown-item" href="state-historical.html?state=FL">FL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=GA">GA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=HI">HI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ID">ID</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IL">IL</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IN">IN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=IA">IA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=KS">KS</a>
+                            <a class="dropdown-item" href="state-historical.html?state=KY">KY</a>
+                            <a class="dropdown-item" href="state-historical.html?state=LA">LA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ME">ME</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MD">MD</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MA">MA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MI">MI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MN">MN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MS">MS</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MO">MO</a>
+                            <a class="dropdown-item" href="state-historical.html?state=MT">MT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NE">NE</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NV">NV</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NH">NH</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NJ">NJ</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NM">NM</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NY">NY</a>
+                            <a class="dropdown-item" href="state-historical.html?state=NC">NC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=ND">ND</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OH">OH</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OK">OK</a>
+                            <a class="dropdown-item" href="state-historical.html?state=OR">OR</a>
+                            <a class="dropdown-item" href="state-historical.html?state=PA">PA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=RI">RI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=SC">SC</a>
+                            <a class="dropdown-item" href="state-historical.html?state=SD">SD</a>
+                            <a class="dropdown-item" href="state-historical.html?state=TN">TN</a>
+                            <a class="dropdown-item" href="state-historical.html?state=TX">TX</a>
+                            <a class="dropdown-item" href="state-historical.html?state=UT">UT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=VT">VT</a>
+                            <a class="dropdown-item" href="state-historical.html?state=VA">VA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WA">WA</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WV">WV</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WI">WI</a>
+                            <a class="dropdown-item" href="state-historical.html?state=WY">WY</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle infectedhistorical" href="state-historical.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Infection Totals
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=USA">USA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AL">AL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AK">AK</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AZ">AZ</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=AR">AR</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CA">CA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CO">CO</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=CT">CT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=DC">DC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=DE">DE</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=FL">FL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=GA">GA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=HI">HI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ID">ID</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IL">IL</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IN">IN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=IA">IA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=KS">KS</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=KY">KY</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=LA">LA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ME">ME</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MD">MD</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MA">MA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MI">MI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MN">MN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MS">MS</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MO">MO</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=MT">MT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NE">NE</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NV">NV</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NH">NH</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NJ">NJ</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NM">NM</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NY">NY</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=NC">NC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=ND">ND</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OH">OH</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OK">OK</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=OR">OR</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=PA">PA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=RI">RI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=SC">SC</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=SD">SD</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=TN">TN</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=TX">TX</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=UT">UT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=VT">VT</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=VA">VA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WA">WA</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WV">WV</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WI">WI</a>
+                            <a class="dropdown-item" href="state-historical.html?data=infectedhistorical&state=WY">WY</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <h2>New Infected/New Deaths Historical Data For <span id="statename"></span></h2>
-    <canvas id="canvas"></canvas><br />
-    <p><i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
-    <i>(The State Testing Data is updated as new data comes in)</i></p>
+        </nav>
+        <h2><span id="reportname"></span> For <span id="statename"></span></h2>
+        <div class="fb-share-button" data-href="https://hopeful-davinci-d08be0.netlify.app/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhopeful-davinci-d08be0.netlify.app%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        <canvas id="canvas"></canvas><br />
+        <p>
+            <i>The live state testing data comes from <a href="https://covidtracking.com/data/" target="_blank">The COVID Tracking Project</a></i><br />
+            <i>(The State Testing Data is updated as new data comes in.  The data for today can go up.)</i>
+        </p>
 
 
-    <script type="text/javascript">
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
+        <script type="text/javascript">
+            //collect variables to determine what data to put in the report
+            var whichstate = getParameterByName('state');
+            if (!whichstate) whichstate = 'USA';
+            var datatype = getParameterByName('data');
+            if (!datatype) datatype = 'start';
+            $('#statename').text(whichstate);
 
-        var whichstate = getParameterByName('state');
-        $('#statename').text(whichstate);
-        var returndata = [];
-        var returndatainfected = [];
-        var today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
-        var started = false;
-        var previousdata = 0;
-        var previousdatadeath = 0;
-        if (whichstate == 'USA') {
-            //lets find the data
-            var requestnew2 = new XMLHttpRequest();
-            requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
-            requestnew2.onload = function () {
-                // Begin accessing JSON data here
-                if (requestnew2.status >= 200 && requestnew2.status < 400) {
-                    var data = JSON.parse(this.response);
-                    data.reverse();
-                    for (var i = 0; i < data.length; i++) {
-                        var daydata = data[i];   
-                        //console.log('date:' + daydata.date.toString());
-                        if (started && daydata.date.toString() <= yesterdaydate.toString()) {
-                            var usnew = daydata.positive - previousdata;
-                            var usnewdeath = daydata.death - previousdatadeath;
-                            var dateval = daydata.date.toString();
-                            returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
-                            returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+            //create arrays for all the types of data we might want to put in the report
+            var returndata = [];
+            var returndatainfected = [];
+            var returndatatested = [];
+            var returndatainfectedhistorical = [];
+            var previousdata = 0;
+            var previousdatadeath = 0;
+            var previousdatatested = 0;
+            var previousdatainfectedhistorical = 0;
+
+            var today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            var yesterdaydate = yesterday.getFullYear() + '' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '' + ('0' + (yesterday.getDate())).slice(-2);
+            var started = false;
+
+            if (whichstate == 'USA') {
+                //lets find the data
+                var requestnew2 = new XMLHttpRequest();
+                requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+                requestnew2.onload = function () {
+                    // Begin accessing JSON data here
+                    if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                        var data = JSON.parse(this.response);
+                        data.reverse();
+                        for (var i = 0; i < data.length; i++) {
+                            var daydata = data[i];
+                            //console.log('date:' + daydata.date.toString());
+                            if (started) {// && daydata.date.toString() <= yesterdaydate.toString()) {
+                                var dateval = daydata.date.toString();
+                                var usnew = daydata.positive - previousdata;
+                                returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+                                previousdata = daydata.positive;
+
+                                var usnewdeath = daydata.death - previousdatadeath;
+                                returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
+                                previousdatadeath = daydata.death;
+
+                                var currenttested = parseInt(daydata.positive) + parseInt(daydata.negative) + parseInt(daydata.pending);
+                                var usnewtested = currenttested - previousdatatested;
+                                returndatatested.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewtested });
+                                previousdatatested = parseInt(daydata.positive) + parseInt(daydata.negative) + parseInt(daydata.pending);
+
+                                //var usnewinfectedhistorical = daydata.death - previousdatainfectedhistorical;
+                                returndatainfectedhistorical.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: daydata.positive });
+                                //previousdatainfectedhistorical = daydata.death;
+                            }
+                            started = true;
                         }
-                        previousdata = daydata.positive;
-                        previousdatadeath = daydata.death;
-                        started = true;
                     }
                 }
-            }
-            requestnew2.send();
-        } else {
+                requestnew2.send();
+            } else {
+                var requestnew = new XMLHttpRequest();
+                requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
+                requestnew.onload = function () {
+                    // Begin accessing JSON data here
+                    if (requestnew.status >= 200 && requestnew.status < 400) {
+                        var data = JSON.parse(this.response);
+                        data.reverse();
+                        for (var i = 0; i < data.length; i++) {
+                            var daydata = data[i];
+                            //console.log('date:' + daydata.date.toString());
+                            if (daydata.state == whichstate && started) {// && daydata.date.toString() <= yesterdaydate.toString()) {
+                                var dateval = daydata.date.toString();
+                                var usnew = daydata.positive - previousdata;
+                                returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+                                previousdata = daydata.positive;
 
-            var requestnew = new XMLHttpRequest();
-            requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
-            requestnew.onload = function () {
-                // Begin accessing JSON data here
-                if (requestnew.status >= 200 && requestnew.status < 400) {
-                    var data = JSON.parse(this.response);
-                    data.reverse();
-                    for (var i = 0; i < data.length; i++) {
-                        var daydata = data[i];   
-                        //console.log('date:' + daydata.date.toString());
-                        if (daydata.state == whichstate && started && daydata.date.toString() <= yesterdaydate.toString()) {
-                            var usnew = daydata.positive - previousdata;
-                            var usnewdeath = daydata.death - previousdatadeath;
-                            var dateval = daydata.date.toString();
-                            returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
-                            returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
-                            previousdata = daydata.positive;
-                            previousdatadeath = daydata.death;
+                                var usnewdeath = daydata.death - previousdatadeath;
+                                returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
+                                previousdatadeath = daydata.death;
+
+                                var positive = (daydata.positive ? daydata.positive : 0);
+                                var pending = (daydata.pending ? daydata.pending : 0);
+                                var negative = (daydata.negative ? daydata.negative : 0);
+                                var currenttested = parseInt(positive) + parseInt(negative) + parseInt(pending);
+                                var usnewtested = currenttested - previousdatatested;
+                                returndatatested.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewtested });
+                                previousdatatested = currenttested;
+                                //console.log('date:' + daydata.date.toString() + ':currenttested:' + currenttested);
+
+                                //var usnewinfectedhistorical = daydata.death - previousdatainfectedhistorical;
+                                returndatainfectedhistorical.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: daydata.positive });
+                                //previousdatainfectedhistorical = daydata.death;
+                            }
+                            started = true;
                         }
-                        started = true;
                     }
                 }
+                requestnew.send();
             }
-            requestnew.send();
-        }
 
-		var color = Chart.helpers.color;
-		var config = {
-			type: 'line',
-			data: {
-				datasets: [{
-                    label: 'New Deaths',
-					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-					borderColor: window.chartColors.red,
-					fill: false,
-                    data: returndata,
-                }, {
+            var color = Chart.helpers.color;
+            var config = {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'New Deaths',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.red,
+                        fill: false,
+                        data: returndata,
+                    }, {
                         label: 'New Infected',
                         backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
                         borderColor: window.chartColors.orange,
                         fill: false,
                         data: returndatainfected,
                     }]
-			},
-			options: {
-                responsive: true, 
-				title: {
-					display: true,
-                    text: 'New Infected/New Deaths Historical Data'
-				},
-				scales: {
-					xAxes: [{
-						type: 'time',
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Date'
-						},
-						ticks: {
-							major: {
-								fontStyle: 'bold',
-								fontColor: '#FF0000'
-							}
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'value'
-						}
-					}]
-				}
-			}
-		};
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: false,
+                        text: 'New Infected/New Deaths Historical Data'
+                    },
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            },
+                            ticks: {
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'value'
+                            }
+                        }]
+                    }
+                }
+            };
+            var configinfectedhistorical = {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Infected',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.red,
+                        fill: false,
+                        data: returndatainfectedhistorical,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: false,
+                        text: 'Infected Totals By Day'
+                    },
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            },
+                            ticks: {
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'value'
+                            }
+                        }]
+                    }
+                }
+            };
+            var configtested = {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'New Infected',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.red,
+                        fill: false,
+                        data: returndatainfected,
+                    }, {
+                        label: 'New Tested',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.green,
+                        fill: false,
+                        data: returndatatested,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: false,
+                        text: 'New Infected/New Tested Historical Data'
+                    },
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            },
+                            ticks: {
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'value'
+                            }
+                        }]
+                    }
+                }
+            };
 
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myLine = new Chart(ctx, config);
-		};
-    </script>
+            window.onload = function () {
+                $('.' + datatype).addClass('active');
+                var ctx = document.getElementById('canvas').getContext('2d');
+                if (datatype === 'infectedhistorical') {
+                    $('#reportname').html('Infected Totals By Day');
+                    window.myLine = new Chart(ctx, configinfectedhistorical);
+                } else if (datatype === 'tested') {
+                    $('#reportname').html('New COVID-19 Tests By Day');
+                    window.myLine = new Chart(ctx, configtested);
+                } else {
+                    $('#reportname').html('New Infected/New Deaths Historical Data');
+                    window.myLine = new Chart(ctx, config);
+                }
+            };
+        </script>
     </div>
 </body>
 </html>
