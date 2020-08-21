@@ -192,7 +192,7 @@
 
             //lets find the data
             var requestnew2 = new XMLHttpRequest();
-            requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+            requestnew2.open('GET', 'https://api.covidtracking.com/v1/us/daily.json', false);
             var today = new Date();
 
             const yesterday = new Date(today);

@@ -215,7 +215,7 @@
             if (whichstate == 'USA') {
                 //lets find the data
                 var requestnew2 = new XMLHttpRequest();
-                requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+                requestnew2.open('GET', 'https://api.covidtracking.com/v1/us/daily.json', false);
                 requestnew2.onload = function () {
                     // Begin accessing JSON data here
                     if (requestnew2.status >= 200 && requestnew2.status < 400) {
@@ -248,6 +248,43 @@
                     }
                 }
                 requestnew2.send();
+                /*
+                //lets find the data
+                var requestnew2 = new XMLHttpRequest();
+                requestnew2.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);
+                requestnew2.onload = function () {
+                    // Begin accessing JSON data here
+                    if (requestnew2.status >= 200 && requestnew2.status < 400) {
+                        var data = JSON.parse(this.response);
+                        data.reverse();
+                        for (var i = 0; i < data.length; i++) {
+                            var daydata = data[i];
+                            //console.log('date:' + daydata.date.toString());
+                            if (started) {// && daydata.date.toString() <= yesterdaydate.toString()) {
+                                var dateval = daydata.date.toString();
+                                var usnew = daydata.positive - previousdata;
+                                returndatainfected.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnew });
+                                previousdata = daydata.positive;
+
+                                var usnewdeath = daydata.death - previousdatadeath;
+                                returndata.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewdeath });
+                                previousdatadeath = daydata.death;
+
+                                var currenttested = parseInt(daydata.positive) + parseInt(daydata.negative) + parseInt(daydata.pending);
+                                var usnewtested = currenttested - previousdatatested;
+                                returndatatested.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: usnewtested });
+                                previousdatatested = parseInt(daydata.positive) + parseInt(daydata.negative) + parseInt(daydata.pending);
+
+                                //var usnewinfectedhistorical = daydata.death - previousdatainfectedhistorical;
+                                returndatainfectedhistorical.push({ x: dateval.substr(4, 2) + '/' + dateval.substr(6, 2) + '/' + dateval.substr(0, 4), y: daydata.positive });
+                                //previousdatainfectedhistorical = daydata.death;
+                            }
+                            started = true;
+                        }
+                    }
+                }
+                requestnew2.send();
+                */
             } else {
                 var requestnew = new XMLHttpRequest();
                 requestnew.open('GET', 'https://covidtracking.com/api/v1/states/daily.json', false);

@@ -336,6 +336,13 @@
             addPair('VT', '623989');
             addPair('WY', '578759');
 
+            addPair('AS', '55641'); //American Samoa
+            addPair('DC', '705749'); //District of Columbia
+            addPair('GU', '165718'); //Guam
+            addPair('MP', '55194'); //Northern Mariana Islands
+            addPair('PR', '3193694'); //Puerto Rico
+            addPair('VI', '104914'); //US Virgin Islands
+
 
             var dictGovernor = {};
             var addPairGovernor = function (myKey, myValue) {
@@ -401,7 +408,7 @@
 
             //lets find the number of new cases
             var requestnew2 = new XMLHttpRequest();
-            requestnew2.open('GET', 'https://covidtracking.com/api/us/daily', false);
+            requestnew2.open('GET', 'https://api.covidtracking.com/v1/us/daily.json', false);
             var today = new Date();
             const yesterday = new Date(today);
             yesterday.setDate(yesterday.getDate() - 1);
@@ -466,7 +473,7 @@
 
 
             var request2 = new XMLHttpRequest();
-            request2.open('GET', 'https://covidtracking.com/api/us', false);
+            request2.open('GET', 'https://api.covidtracking.com/v1/us/current.json', false);
             request2.onload = function () {
                 // Begin accessing JSON data here
                 if (request2.status >= 200 && request2.status < 400) {
@@ -476,7 +483,7 @@
             }
             request2.send();
             var request = new XMLHttpRequest();
-            request.open('GET', 'https://covidtracking.com/api/states', false);
+            request.open('GET', 'https://api.covidtracking.com/v1/states/current.json', false);
             request.onload = function () {
                 // Begin accessing JSON data here
                 if (request.status >= 200 && request.status < 400) {
@@ -498,6 +505,9 @@
                     if (alwaysdisplay || parseInt(giveValue(state.state)) > 0) {
                         const staterow = document.createElement('tr');
                         staterow.setAttribute('class', (alwaysdisplay ? ' USA' : state.state));
+                        if (['AS', 'DC', 'GU', 'MP', 'PR', 'VI'].indexOf(state.state) > -1) {
+                            staterow.setAttribute('style', 'background:#f5f5e4;');
+                        }
 
                         //{"state":"AZ","positive":470,"positiveScore":1,"negativeScore":1,"negativeRegularScore":1,"commercialScore":0,"grade":"B","score":3,
                         //"negative": 323, "pending": 53, "hospitalized": 8, "death": 6, "total": 846, "lastUpdateEt": "3/25 00:00", "checkTimeEt": "3/26 00:50", "dateModified": "2020-03-25T04:00:00Z", "dateChecked": "2020-03-26T04:50:00Z", "notes": "Please stop using the \"total\" field. Use \"totalTestResults\" instead.", "totalTestResults": 793}
