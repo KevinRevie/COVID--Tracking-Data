@@ -444,7 +444,7 @@
             requestnew2.send();
 
             var requestnew = new XMLHttpRequest();
-            requestnew.open('GET', 'https://covidtracking.com/v1/states/daily.json', false);
+            requestnew.open('GET', 'https://api.covidtracking.com/v1/states/daily.json', false);
             var dictNew = {};
             var addPairNew = function (myKey, myValue) {
                 dictNew[myKey] = myValue;
